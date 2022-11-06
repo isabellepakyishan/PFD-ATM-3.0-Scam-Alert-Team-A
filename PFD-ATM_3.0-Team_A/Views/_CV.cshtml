@@ -1,0 +1,23 @@
+﻿@{
+@*        @using System.IO;
+        @using System.Diagnostics;
+
+        string warning;
+
+        ProcessStartInfo start = new ProcessStartInfo
+        {
+            FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
+            Arguments = @".\Python\FaceDepthMeasurement.py",
+            UseShellExecute = false,
+            RedirectStandardOutput = true
+        };
+        using (Process p = Process.Start(start))
+        {
+            using (StreamReader reader = p.StandardOutput)
+            {
+                warning = reader.ReadToEnd();
+            }
+        }*@
+}
+
+@*<p>@warning</p>*@

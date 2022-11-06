@@ -5,4 +5,11 @@
     <RootNamespace>PFD_ATM_3._0_Team_A</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="OpenCV" Version="2.4.11" />
+    <PackageReference Include="python" Version="3.9.4" />
+    <PackageReference Include="pythonnet" Version="3.0.1" />
+  </ItemGroup>
+
 </Project>

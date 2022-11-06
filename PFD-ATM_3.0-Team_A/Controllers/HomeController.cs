@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
@@ -21,6 +22,28 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public string FaceDepthDetector()
+        {
+            string warning;
+
+            ProcessStartInfo start = new ProcessStartInfo
+            {
+                FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
+                Arguments = @".\python\FaceDepthMeasurement.py",
+                UseShellExecute = false,
+                RedirectStandardOutput = true
+            };
+            using (Process p = Process.Start(start))
+            {
+                using (StreamReader reader = p.StandardOutput)
+                {
+                    warning = reader.ReadToEnd();
+                }
+            }
+
+            return warning;
         }
 
         public IActionResult Privacy()
