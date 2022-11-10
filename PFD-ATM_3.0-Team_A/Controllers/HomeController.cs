@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using PFD_ATM_3._0_Team_A.Models;
 using System;
+using System.Web;
+using System.Net.Http;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,38 +15,81 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
+            Output();
+
             return View();
         }
 
-        public string FaceDepthDetector()
+/*        protected ActionResult Warning()
         {
-            string warning;
+            string depth = "";
+            using (StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
 
-            ProcessStartInfo start = new ProcessStartInfo
-            {
-                FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
-                Arguments = @".\python\FaceDepthMeasurement.py",
-                UseShellExecute = false,
-                RedirectStandardOutput = true
-            };
-            using (Process p = Process.Start(start))
-            {
-                using (StreamReader reader = p.StandardOutput)
+                using (StringReader sr = new StringReader(sw.ToString()))
                 {
-                    warning = reader.ReadToEnd();
+                    Console.WriteLine(sr.ReadLine());
                 }
             }
 
-            return warning;
+            return PartialView("_CV", depth);
+        }*/
+
+        protected async void Output()
+        {
+            await Task.Run(() => FaceDepthDetector());
+            /*await Task.Run(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(new FileStream("depth.txt", FileMode.OpenOrCreate)))
+                        {
+                            string depth = sr.ReadToEnd();
+                            ViewData["Warning"] = depth;
+                        }
+                    }
+                    catch (IOException e)
+                    {  }
+                    
+                }
+            });*/
+        }
+        protected void FaceDepthDetector()
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
+                    Arguments = @".\python\FaceDepthMeasurement.py",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
+
+                Process start = new Process
+                {
+                    StartInfo = startInfo
+                };
+                start.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    using (StreamWriter sw = new StreamWriter(new FileStream("Static/depth.txt", FileMode.OpenOrCreate)))
+                    {
+                        sw.WriteLine(e.Data);
+                    }
+                });
+
+                start.Start();
+                start.BeginOutputReadLine();
+                start.WaitForExit();
+
+            }
+            catch(Exception e) { }
         }
 
         public IActionResult Privacy()

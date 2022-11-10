@@ -1,4 +1,24 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿/*$.ajax({
+    url: "_CV.cshtml",
+    type: "post",
+    dataType: "text",
+    success: function (data) {
+        $("#test").html(data);
+    }
+})
+let { PythonShell } = require('python-shell');
 
-// Write your JavaScript code.
+PythonShell.run('FaceDepthMeasurement.py', function (err, results) {
+    console.log(results);
+})*/
+$(document).ready(function () {
+    const body = document.getElementById("test");
+    setInterval(async function () {
+        await fetch('StaticFiles/depth.txt')
+            .then(response => response.text())
+            .then(txt => {
+                body.innerHTML = txt
+                console.log(txt)
+            });
+    }, 5);
+});
