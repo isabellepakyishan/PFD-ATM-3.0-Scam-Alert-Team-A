@@ -51,9 +51,12 @@ namespace PFD_ATM_3._0_Team_A
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            var webRootProvider = new PhysicalFileProvider(env.WebRootPath);
+            var contentRootProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Static"));
+            var compositeProvider = new CompositeFileProvider(webRootProvider, contentRootProvider);
             app.UseFileServer(new FileServerOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Static")),
+                FileProvider = compositeProvider,
                 RequestPath = "/StaticFiles",
                 EnableDirectoryBrowsing = true
             });
