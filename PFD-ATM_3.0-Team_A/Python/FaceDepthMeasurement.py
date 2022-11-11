@@ -60,6 +60,13 @@ while True:
         if abs(faces_depth[0] - faces_depth[1]) < 50:
             cv2.rectangle(img, (280, 230), (400, 280), (0, 255, 0), cv2.FILLED)
             cv2.putText(img, 'Warning', (285, 265), cv2.FONT_HERSHEY_TRIPLEX, 0.8, (0, 0, 0), 2)
+
+        cv2.imshow("Image", img)
+        cv2.waitKey(1)  # wait one millisecond between capturing
+        continue
+
+    print("999");
+    sys.stdout.flush();
     cv2.imshow("Image", img)
     cv2.waitKey(1)  # wait one millisecond between capturing
     if cv2.getWindowProperty("Image", cv2.WND_PROP_VISIBLE) < 1:

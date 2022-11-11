@@ -41,9 +41,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title text-center w-100" id="modal-title">Login</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
-                <div class="modal-body" id="modalContent"></div>
+                <div class="modal-body"></div>
             </div>
         </div>
     </div>
@@ -55,6 +55,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src=@Url.Content("https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js")></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
