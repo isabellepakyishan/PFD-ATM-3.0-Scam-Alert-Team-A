@@ -75,3 +75,11 @@ body {
     top: 50% !important;
     transform: translateY(-50%) !important;
 }
+
+/*#faceDepthModal {
+    z-index: 999
+}
+
+#ferModal {
+    z-index: 999
+}*/
