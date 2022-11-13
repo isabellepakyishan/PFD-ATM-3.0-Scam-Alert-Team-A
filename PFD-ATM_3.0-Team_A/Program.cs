@@ -33,7 +33,7 @@ namespace PFD_ATM_3._0_Team_A
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
-                    Arguments = @".\python\FaceDepthMeasurement.py",
+                    Arguments = @".\python\FaceDepthAndExpressionRecognition.py",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
@@ -47,12 +47,22 @@ namespace PFD_ATM_3._0_Team_A
                 {
                     try
                     {
-                        using (StreamWriter sw = new StreamWriter(new FileStream("Static/depth.txt", FileMode.OpenOrCreate)))
+                        if (e.Data.StartsWith("fd"))
                         {
-                            sw.WriteLine(e.Data);
+                            using (StreamWriter sw = new StreamWriter(new FileStream("Static/depth.txt", FileMode.OpenOrCreate)))
+                            {
+                                sw.WriteLine(e.Data[2..]);
+                            }
+                        }
+                        else if (e.Data.StartsWith("fer"))
+                        {
+                            using (StreamWriter sw = new StreamWriter(new FileStream("Static/fear.txt", FileMode.OpenOrCreate)))
+                            {
+                                sw.WriteLine(e.Data[3..]);
+                            }
                         }
                     }
-                    catch (IOException io) { }
+                    catch (Exception p) { }
 
                 });
 
