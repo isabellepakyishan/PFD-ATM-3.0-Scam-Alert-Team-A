@@ -30,45 +30,47 @@
         }
     </style>
 </head>
-<body>
-    @{
-        await Html.RenderPartialAsync("_Topbar.cshtml");
-    }
-    <div class="page-content">
-        <div class="container-fluid">
-            @RenderBody()
-        </div>
-    </div>
-
-    <!--Facial Expression Recognition Modal-->
-    <div class="modal fade" id="ferModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-center" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title text-center w-100" id="ferModalTitle"></h2>
-                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body" id="ferModalBody"></div>
+<body data-layout-size="boxed">
+    <div id="layout-wrapper">
+        @{
+            await Html.RenderPartialAsync("_Topbar.cshtml");
+        }
+        <div class="page-content">
+            <div class="container-fluid">
+                @RenderBody()
             </div>
         </div>
-    </div>
 
-    <!--Face Depth Measurement Modal-->
-    <div class="modal fade" id="faceDepthModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-center" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title text-center w-100" id="faceDepthModalTitle"></h2>
-                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+        <!--Facial Expression Recognition Modal-->
+        <div class="modal fade" id="ferModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center w-100" id="ferModalTitle"></h2>
+                        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body" id="ferModalBody"></div>
                 </div>
-                <div class="modal-body" id="faceDepthModalBody"></div>
             </div>
         </div>
-    </div>
 
-    @{
-        await Html.RenderPartialAsync("_Footer.cshtml");
-    }
+        <!--Face Depth Measurement Modal-->
+        <div class="modal fade" id="faceDepthModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center w-100" id="faceDepthModalTitle"></h2>
+                        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body" id="faceDepthModalBody"></div>
+                </div>
+            </div>
+        </div>
+
+        @{
+            await Html.RenderPartialAsync("_Footer.cshtml");
+        }
+    </div>
 
     <script>
         window.addEventListener('load', () => {
