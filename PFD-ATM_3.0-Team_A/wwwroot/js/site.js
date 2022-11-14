@@ -1,55 +1,44 @@
-﻿
+﻿var fearCount = 0;
+
 setInterval(function () {
-    fetch('/StaticFiles/fear.txt')
+    fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
         .then(response => response.text())
         .then(txt => {
-            facialExpressionCheck(txt);
-            console.log("fear: "+txt);
+            if (fearCount > 1) { // Checks how many times the fear threshold has been reached
+                facialExpressionCheck(); // Shows modal
+            } else if (txt > 79) {
+                fearCount += 1
+            }
+            console.log("fear: "+txt+"\ncount: "+fearCount);
         });
-}, 2500);
+}, 2000); // delay
 
 setInterval( function () {
-    fetch('/StaticFiles/depth.txt')
+    fetch('/StaticFiles/depth.txt') // fetches depth diff value from python script constantly
         .then(response => response.text())
         .then(txt => {
-            distanceWarning(txt);
+            distanceWarning(txt); // Shows modal
             console.log("depth_diff: "+txt);
         });
-}, 2500);
+}, 2500); // delay
 
 function distanceWarning(d) {
     if (d < 76 && d) {
-        $("#faceDepthModalTitle").text("Too close!");
-        $("#faceDepthModalBody").html(' \
-        <div class="text-center"> \
-            <p>Please ensure you are at least 0.5m away from any individual.</p> \
-            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_6twxg3pm.json" background="transparent" speed="1" style="width: 300px; height: 300px; margin: 0 auto" loop autoplay></lottie-player> \
-        </div > ');
         $("#faceDepthModal").modal("show");
     }
     else {
-        $("#faceDepthModal").modal("hide");
+        $("#faceDepthModal").modal("hide"); // automatic modal close
     }
 }
 
-function facialExpressionCheck(em) {
-    if (!$("#ferModal").is(":visible")) {
-        if (em > 79) {
-            $("#ferModalTitle").text("Do you require assistance?");
-            $("#ferModalBody").html(' \
-            <div class="text-center"> \
-                <p>Our system has detected that you are in some distress.</p> \
-                <p>Would you like to continue this trasaction?</p> \
-                <div class="d-sm-inline-flex"> \
-                    <button type="button" class="btn btn-primary mx-2">End Transaction</button> \
-                    <button type="button" onclick="modalHide()" class="btn btn-primary mx-2">Continue</button> \
-                </div > \
-            </div > ');
-            $("#ferModal").modal("show");
-        }
+function facialExpressionCheck() {
+    if (!$("#ferModal").is(":visible")) { // Checks if modal is open and skips over if it is
+        $("#ferModal").modal("show");
+        fearCount = 0; // Reset fear counter
     }   
 }
 
 function modalHide() {
     $(".modal").modal("hide");
+    fearCount = 0
 }

@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <meta content="PFD Scam Alert - ATM 3.0" name="description" />
     <link rel="shortcut icon" href="~/images/OCBC Small.png">
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
     <link rel="stylesheet" type="text/css" href="~/lib/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" /> <!-- NOTE -->
     <link rel="stylesheet" type="text/css" href="~/css/preloader.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -46,10 +47,19 @@
             <div class="modal-dialog modal-lg modal-center" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title text-center w-100" id="ferModalTitle"></h2>
+                        <h2 class="modal-title text-center w-100" id="ferModalTitle">Do you require assistance?</h2>
                         <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
                     </div>
-                    <div class="modal-body" id="ferModalBody"></div>
+                    <div class="modal-body" id="ferModalBody">
+                        <div class="text-center">
+                            <p>Our system has detected that you are in some distress.</p>
+                            <p>Would you like to continue this trasaction?</p>
+                            <div class="d-sm-inline-flex">
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-primary mx-2 text-white">End Transaction</a>
+                                <button type="button" onclick="modalHide()" class="btn btn-primary mx-2">Continue</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,10 +69,15 @@
             <div class="modal-dialog modal-lg modal-center" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title text-center w-100" id="faceDepthModalTitle"></h2>
+                        <h2 class="modal-title text-center w-100" id="faceDepthModalTitle">Too close!</h2>
                         <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
                     </div>
-                    <div class="modal-body" id="faceDepthModalBody"></div>
+                    <div class="modal-body" id="faceDepthModalBody">
+                        <div class="text-center">
+                            <p>Please ensure you are at least 0.5m away from any individual.</p>
+                            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_6twxg3pm.json" background="transparent" speed="1" style="width: 300px; height: 300px; margin: 0 auto" loop autoplay></lottie-player>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

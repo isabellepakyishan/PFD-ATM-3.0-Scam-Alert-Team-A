@@ -24,9 +24,9 @@ namespace PFD_ATM_3._0_Team_A
 
         protected async void Output()
         {
-            await Task.Run(() => FaceDepthDetector());
+            await Task.Run(() => FaceDepthAndExpressionRecognition());
         }
-        protected void FaceDepthDetector()
+        protected void FaceDepthAndExpressionRecognition()
         {
             try
             {
@@ -47,14 +47,14 @@ namespace PFD_ATM_3._0_Team_A
                 {
                     try
                     {
-                        if (e.Data.StartsWith("fd"))
+                        if (e.Data != null && e.Data.StartsWith("fd"))
                         {
                             using (StreamWriter sw = new StreamWriter(new FileStream("Static/depth.txt", FileMode.OpenOrCreate)))
                             {
                                 sw.WriteLine(e.Data[2..]);
                             }
                         }
-                        else if (e.Data.StartsWith("fer"))
+                        else if (e.Data != null && e.Data.StartsWith("fer"))
                         {
                             using (StreamWriter sw = new StreamWriter(new FileStream("Static/fear.txt", FileMode.OpenOrCreate)))
                             {
