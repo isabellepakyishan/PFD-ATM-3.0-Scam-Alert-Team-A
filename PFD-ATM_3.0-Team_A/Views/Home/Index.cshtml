@@ -1,9 +1,47 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Enter Account Number";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <partial name="../_CV.cshtml" >
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col">
+        <h1 class="mb-sm-0">Welcome</h1>
+        <br>
+        <br>
+        <label class="form-label" style="font-size: 25px;">Please enter your account number</label>
+        <div class="row">
+            <div class="col-xl-5 col-md-6">
+                <input class="form-control account-no" type="number" maxlength="12" id="account-no">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top: 20px;">
+    <div class="col-xl-2 col-md-6">
+        <div class="card card-h-100">
+            <button type="button" class="btn btn-dark waves-effect waves-light" id="clear">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col" style="font-size: 20px;">
+                            Clear
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <a href="receipt-option.html" style="color: white;">
+            <div class="card card-h-100">
+                <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Enter
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </a>
+    </div>
 </div>
