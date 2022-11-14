@@ -3,38 +3,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PFD_ATM_3._0_Team_A</title>
+    <title>@ViewData["Title"] | OCBC ATM 3.0</title>
+    <meta charset="utf-8" />
+    <meta content="PFD Scam Alert - ATM 3.0" name="description" />
+    <link rel="shortcut icon" href="~/images/OCBC Small.png">
+    <link rel="stylesheet" type="text/css" href="~/lib/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" /> <!-- NOTE -->
+    <link rel="stylesheet" type="text/css" href="~/css/preloader.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" id="bootstrap-style" />
+    <link rel="stylesheet" type="text/css" href="~/css/icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/app.min.css" id="app-style" />
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input {
+            text-align: center;
+        }
+
+        input.form-control {
+            height: 86.66px;
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body>
-    <section class="mh-100 mw-100 overflow-hidden position-absolute" style="z-index:-1;">
-        <img class="" src="~/images/abstract-background-with-monochrome-low-poly-design_1048-14453.jpg" />
-    </section>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
-            <div class="container p-3 m-auto">
-                <img class="navbar-brand img-fluid" style="max-width:15%" src="~/images/ocbc-bank-logo.png" asp-area="" asp-controller="Home" asp-action="Index" />
-                <div class="collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item m-auto">
-                            <span class="font-weight-bolder">中文</span>
-                        </li>
-                        <li class="m-auto p-2">
-                            <span class="font-weight-bolder">|</span>
-                        </li>
-                        <li class="nav-item">
-                            <img src="~/images/logout_FILL0_wght400_GRAD0_opsz48.svg" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    @{
+        await Html.RenderPartialAsync("_Topbar.cshtml");
+    }
+    <div class="page-content">
+        <div class="container-fluid">
             @RenderBody()
-        </main>
+        </div>
     </div>
 
     <!--Facial Expression Recognition Modal-->
@@ -63,13 +66,26 @@
         </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - PFD_ATM_3._0_Team_A - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @{
+        await Html.RenderPartialAsync("_Footer.cshtml");
+    }
+
+    <script>
+        window.addEventListener('load', () => {
+            const button = document.querySelector('#clear');
+            button.addEventListener('click', () => {
+                document.querySelector('#account-no').value = "";
+            });
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/metismenu/metisMenu.min.js"></script>
+    <script src="~/lib/simplebar/simplebar.min.js"></script>
+    <script src="~/lib/node-waves/waves.min.js"></script>
+    <script src="~/lib/feather-icons/feather.min.js"></script>
+    <script src="~/lib/pace-js/pace.min.js"></script>
+    <script src="~/js/app.js"></script>
     <script src=@Url.Content("https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js")></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
