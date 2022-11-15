@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
+using PFD_ATM_3._0_Team_A.Models;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
@@ -17,6 +18,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
 

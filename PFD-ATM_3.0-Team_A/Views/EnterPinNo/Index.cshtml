@@ -10,18 +10,22 @@
 
         <label class="form-label" style="font-size: 25px;">Please enter your PIN</label>
         <div class="row">
-            <input class="form-control pin-no" type="" maxlength="1" autofocus="autofocus" />
+            <form asp-action="Index" asp-controller="EnterPinNo" method="post" class='row' id="pin_form">
+                <input class="form-control pin-no" type="text" maxlength="1" autofocus="autofocus" />
 
-            <input class="form-control pin-no" type="" maxlength="1" />
+                <input class="form-control pin-no" type="text" maxlength="1" />
 
-            <input class="form-control pin-no" type="" maxlength="1" />
+                <input class="form-control pin-no" type="text" maxlength="1" />
 
-            <input class="form-control pin-no" type="" maxlength="1" />
+                <input class="form-control pin-no" type="text" maxlength="1" />
 
-            <input class="form-control pin-no" type="" maxlength="1" />
+                <input class="form-control pin-no" type="text" maxlength="1" />
 
-            <input class="form-control pin-no" type="" maxlength="2" />
+                <input class="form-control pin-no" type="text" maxlength="1" />
 
+                <input class="form-control pin-no" type="text" maxlength="1" hidden/>
+            </form>
+            
             <div class="col-xl-1 col-md-6"></div>
 
             <div class="col-xl-1 col-md-6">

@@ -47,12 +47,24 @@ function modalHide() {
 var index = 1;
 
 function OnKeyPadPressed(number) {
-    const id = `#layout-wrapper > div > div > div:nth-child(1) > div > div > input:nth-child(${index})`
-    $(id).val(number);
+    const id = `#layout-wrapper > div > div > div:nth-child(1) > div > div > form > input:nth-child(${index})`
+    $(id).val($(id).val() + number);
+
+    if (index == 6) {
+        setTimeout(function () {
+            $("#pin_form").submit();
+        }, 3000);
+    } else if (index == 7)
+        $("#pin_form").submit();
+
     index += 1;
 }
 
-var pins = document.getElementsByClassName('form-control pin-no')
+var pins = document.getElementsByClassName('form-control pin-no');
+var lastDigitIndex = document.getElementsByClassName('form-control pin-no').length - 1;
+var secondLastDigit = document.getElementsByClassName('form-control pin-no')[lastDigitIndex-1];
+var lastDigit = document.getElementsByClassName('form-control pin-no')[lastDigitIndex];
+
 Array.from(pins).forEach(function (pin) {
     pin.addEventListener("keyup", function (event) {
         // Number 13 is the "Enter" key on the keyboard
