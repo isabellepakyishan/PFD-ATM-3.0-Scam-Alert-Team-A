@@ -61,9 +61,6 @@ function OnKeyPadPressed(number) {
 }
 
 var pins = document.getElementsByClassName('form-control pin-no');
-var lastDigitIndex = document.getElementsByClassName('form-control pin-no').length - 1;
-var secondLastDigit = document.getElementsByClassName('form-control pin-no')[lastDigitIndex-1];
-var lastDigit = document.getElementsByClassName('form-control pin-no')[lastDigitIndex];
 
 Array.from(pins).forEach(function (pin) {
     pin.addEventListener("keyup", function (event) {
