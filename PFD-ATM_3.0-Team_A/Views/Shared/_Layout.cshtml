@@ -28,6 +28,15 @@
         input.form-control {
             height: 86.66px;
             font-size: 30px;
+        }       
+
+        input.pin-no {
+            margin: 0 10px;
+            width: 86.66px;
+        }
+
+        ::-ms-reveal {
+            display: none;
         }
     </style>
 </head>
@@ -87,14 +96,7 @@
         }
     </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            const button = document.querySelector('#clear');
-            button.addEventListener('click', () => {
-                document.querySelector('#account-no').value = "";
-            });
-        });
-    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/metismenu/metisMenu.min.js"></script>
@@ -104,7 +106,6 @@
     <script src="~/lib/pace-js/pace.min.js"></script>
     <script src="~/js/app.js"></script>
     <script src=@Url.Content("https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js")></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
