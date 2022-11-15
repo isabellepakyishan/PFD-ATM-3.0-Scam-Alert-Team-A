@@ -47,10 +47,12 @@ function modalHide() {
 var index = 1;
 
 function OnKeyPadPressed(number) {
-    const id = `#layout-wrapper > div > div > div:nth-child(1) > div > div > form > input:nth-child(${index})`
+    const id = `#layout-wrapper > div > div > form > div:nth-child(1) > input:nth-child(${index})`
     $(id).val($(id).val() + number);
 
     if (index == 6) {
+        $("#enter").removeAttr("disabled");
+        $("#asterisk").removeAttr("disabled");
         setTimeout(function () {
             $("#pin_form").submit();
         }, 3000);
@@ -59,6 +61,11 @@ function OnKeyPadPressed(number) {
 
     index += 1;
 }
+
+//$("#account-no").keypress(function () {
+//    if ($("#account-no").val().toString().length == 12)
+//        $("#checkAccountExists").removeAttr("disabled");
+//})
 
 var pins = document.getElementsByClassName('form-control pin-no');
 var lastDigitIndex = document.getElementsByClassName('form-control pin-no').length - 1;
@@ -83,5 +90,15 @@ window.addEventListener('load', () => {
             pinNo.value = "";
         })
         index = 1;
+    });
+});
+
+window.addEventListener('load', () => {
+    const button = document.querySelector("#layout-wrapper > div.page-content > div > form > div:nth-child(2) > div:nth-child(1) > div > button");
+    button.addEventListener('click', () => {
+        var accountNos = document.getElementsByClassName('form-control account-no')
+        Array.from(accountNos).forEach(function (accountNo) {
+            accountNo.value = "";
+        })
     });
 });
