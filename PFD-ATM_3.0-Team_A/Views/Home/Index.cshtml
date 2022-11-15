@@ -8,31 +8,33 @@
         <br>
         <br>
         <label class="form-label" style="font-size: 25px;">Please enter your account number</label>
-        <div class="row">
-            <div class="col-xl-5 col-md-6">
-                <input class="form-control account-no" type="number" maxlength="12" id="account-no">
-            </div>
-        </div>
     </div>
 </div>
-<div class="row" style="padding-top: 20px;">
-    <div class="col-xl-2 col-md-6">
-        <div class="card card-h-100">
-            <button type="button" class="btn btn-dark waves-effect waves-light" id="clear">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            Clear
-                        </div>
-                    </div>
-                </div>
-            </button>
+
+<form asp-controller="Home" asp-action="CheckAccountExists">
+    <div class="row">
+        <div class="col-xl-5 col-md-6">
+            <input name="accountNo" class="form-control account-no" type="text" maxlength="12" id="account-no" >
         </div>
     </div>
-    <div class="col-xl-2 col-md-6">
-        <a asp-controller="EnterPinNo" asp-action="Index" style="color: white;">
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-2 col-md-6">
             <div class="card card-h-100">
-                <button type="button" class="btn btn-dark waves-effect waves-light" >
+                <button type="button" class="btn btn-dark waves-effect waves-light" onclick="clearAccountField()">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Clear
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-6">
+            <div class="card card-h-100">
+                <button style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="checkAccountExists" disabled>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col" style="font-size: 20px;">
@@ -42,6 +44,6 @@
                     </div>
                 </button>
             </div>
-        </a>
+        </div>
     </div>
-</div>
+</form>
