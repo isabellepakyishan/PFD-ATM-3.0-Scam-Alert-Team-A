@@ -9,303 +9,303 @@
         <br>
 
         <label class="form-label" style="font-size: 25px;">Please enter your PIN</label>
-        <div class="row">
-            <form asp-action="Index" asp-controller="EnterPinNo" method="post" class='row' id="pin_form">
-                <input class="form-control pin-no" type="text" maxlength="1" autofocus="autofocus" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" />
-
-                <input class="form-control pin-no" type="text" maxlength="1" hidden/>
-            </form>
-            
-            <div class="col-xl-1 col-md-6"></div>
-
-            <div class="col-xl-1 col-md-6">
-                <!-- card -->
-                <div class="card card-h-100">
-                    <!-- card body -->
-                    <button type="button" class="btn btn-light waves-effect waves-light" id="1"
-                        onclick="OnKeyPadPressed(1)">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col" style="font-size: 20px;">
-                                    1
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                    <!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-            <div class="col-xl-1 col-md-6">
-                <!-- card -->
-                <div class="card card-h-100">
-                    <!-- card body -->
-                    <button type="button" class="btn btn-light waves-effect waves-light" id="2"
-                        onclick="OnKeyPadPressed(2)">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col" style="font-size: 20px;">
-                                    2
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                    <!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-            <div class="col-xl-1 col-md-6">
-                <!-- card -->
-                <div class="card card-h-100">
-                    <!-- card body -->
-                    <button type="button" class="btn btn-light waves-effect waves-light" id="3"
-                        onclick="OnKeyPadPressed(3)">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col" style="font-size: 20px;">
-                                    3
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                    <!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-            <div class="col-xl-2 col-md-6">
-                <!-- card -->
-                <div class="card card-h-100">
-                    <!-- card body -->
-                    <button type="button" class="btn btn-light waves-effect waves-light">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col" style="font-size: 20px;">
-                                    Cancel
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                    <!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xl-7 col-md-6"></div>
+<form asp-controller="EnterPinNo" asp-action="StorePinNo" id="pin_form">
+    <div class="row">
+        <input name="pin1" class="form-control pin-no" type="text" maxlength="1" autofocus="autofocus" />
 
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="4"
-                onclick="OnKeyPadPressed(4)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            4
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="5"
-                onclick="OnKeyPadPressed(5)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            5
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="6"
-                onclick="OnKeyPadPressed(6)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            6
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-2 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="clear">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            Clear
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-</div>
-<div class="row">
-    <div class="col-xl-7 col-md-6"></div>
+        <input name="pin2" class="form-control pin-no" type="text" maxlength="1" />
 
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="7"
-                onclick="OnKeyPadPressed(7)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            7
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="8"
-                onclick="OnKeyPadPressed(8)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            8
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="9"
-                onclick="OnKeyPadPressed(9)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            9
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-2 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light"
-                style="height: 87.03px;" id="asterisk">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;"></div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-</div>
-<div class="row">
-    <div class="col-xl-7 col-md-6"></div>
+        <input name="pin3" class="form-control pin-no" type="text" maxlength="1" />
 
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light"
-                style="height: 87.03px;">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;"></div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light" id="0"
-                onclick="OnKeyPadPressed(0)">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            0
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-1 col-md-6">
-        <!-- card -->
-        <div class="card card-h-100">
-            <!-- card body -->
-            <button type="button" class="btn btn-light waves-effect waves-light">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            .
-                        </div>
-                    </div>
-                </div>
-            </button>
-            <!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <div class="col-xl-2 col-md-6">
-        <a style="color: white;" asp-controller="MainMenu" asp-action="Index">
+        <input name="pin4" class="form-control pin-no" type="text" maxlength="1" />
+
+        <input name="pin5" class="form-control pin-no" type="text" maxlength="1" />
+
+        <input name="pin6" class="form-control pin-no" type="text" maxlength="1" />
+
+        <input name="pin7" class="form-control pin-no" type="text" maxlength="1" hidden/>      
+        
+        <div class="col-xl-1 col-md-6"></div>
+
+        <div class="col-xl-1 col-md-6">
             <!-- card -->
             <div class="card card-h-100">
                 <!-- card body -->
-                <button type="button" class="btn btn-light waves-effect waves-light" id="enter">
+                <button type="button" class="btn btn-light waves-effect waves-light" id="1"
+                    onclick="OnKeyPadPressed(1)">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col" style="font-size: 20px;">
-                                Enter
+                                1
                             </div>
                         </div>
                     </div>
                 </button>
                 <!-- end card body -->
             </div><!-- end card -->
-        </a>
-    </div><!-- end col -->
-</div>
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="2"
+                    onclick="OnKeyPadPressed(2)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                2
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="3"
+                    onclick="OnKeyPadPressed(3)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                3
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-2 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Cancel
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div>
+    <div class="row">
+        <div class="col-xl-7 col-md-6"></div>
+
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="4"
+                    onclick="OnKeyPadPressed(4)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                4
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="5"
+                    onclick="OnKeyPadPressed(5)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                5
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="6"
+                    onclick="OnKeyPadPressed(6)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                6
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-2 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="clear">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Clear
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div>
+    <div class="row">
+        <div class="col-xl-7 col-md-6"></div>
+
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="7"
+                    onclick="OnKeyPadPressed(7)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                7
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="8"
+                    onclick="OnKeyPadPressed(8)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                8
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="9"
+                    onclick="OnKeyPadPressed(9)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                9
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-2 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light"
+                    style="height: 87.03px;" id="asterisk">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;"></div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div>
+    <div class="row">
+        <div class="col-xl-7 col-md-6"></div>
+
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light"
+                    style="height: 87.03px;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;"></div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light" id="0"
+                    onclick="OnKeyPadPressed(0)">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                0
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-1 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-light waves-effect waves-light">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                .
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-2 col-md-6">
+            <a style="color: white;" asp-controller="EnterPinNo" asp-action="StorePinNo" id="enterButton">
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <button type="submit" class="btn btn-light waves-effect waves-light" id="enter" formmethod="post" disabled>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 20px;">
+                                    Enter
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!-- end card body -->
+                </div><!-- end card -->
+            </a>
+        </div><!-- end col -->
+    </div>
+</form>
