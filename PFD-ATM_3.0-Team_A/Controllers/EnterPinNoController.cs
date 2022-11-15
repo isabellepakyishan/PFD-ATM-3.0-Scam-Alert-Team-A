@@ -22,9 +22,19 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         }
         
         [HttpPost]
-        public ActionResult Index(IFormCollection formData)
+        public ActionResult StorePinNo(IFormCollection form)
         {
-            return RedirectToAction("Index", "Home");
+            string pin1 = form["pin1"];
+            string pin2 = form["pin2"];
+            string pin3 = form["pin3"];
+            string pin4 = form["pin4"];
+            string pin5 = form["pin5"];
+            string pin6 = form["pin6"];
+            string pin7 = form["pin7"];
+
+            string pinNo = pin1 + pin2 + pin3 + pin4 + pin5 + pin6 + pin7;
+
+            return RedirectToAction("Index", "MainMenu");
         }
     }
 }
