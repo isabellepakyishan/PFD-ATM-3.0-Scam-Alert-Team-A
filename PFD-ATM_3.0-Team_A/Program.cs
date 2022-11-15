@@ -32,7 +32,7 @@ namespace PFD_ATM_3._0_Team_A
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = @"C:\Users\chiam\AppData\Local\Programs\Python\Python39\python.exe",
+                    FileName = @"C:\Users\owenw\AppData\Local\Programs\Python\Python39\python.exe",
                     Arguments = @".\python\FaceDepthAndExpressionRecognition.py",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
