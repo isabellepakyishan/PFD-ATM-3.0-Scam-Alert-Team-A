@@ -21,7 +21,7 @@ namespace PFD_ATM_3._0_Team_A.Repositories.RowMapper
 
         public override Accounts Convert(SqlDataReader reader)
         {
-            string accountNo = (string)reader["AccountNo"];
+            string accountNo = (string)reader["ID"];
             string name = (string)reader["Name"];
             string nric = (string)reader["NRIC"];
             string contact = (string)reader["Contact"];
@@ -33,7 +33,7 @@ namespace PFD_ATM_3._0_Team_A.Repositories.RowMapper
 
             return new Accounts
             {
-                AccountNo = accountNo,
+                ID = accountNo,
                 Name = name,
                 NRIC = nric,
                 Contact = contact,
