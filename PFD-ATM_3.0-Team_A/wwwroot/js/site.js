@@ -42,3 +42,34 @@ function modalHide() {
     $(".modal").modal("hide");
     fearCount = 0
 }
+
+
+var index = 1;
+
+function OnKeyPadPressed(number) {
+    const id = `#layout-wrapper > div > div > div:nth-child(1) > div > div > input:nth-child(${index})`
+    $(id).val(number);
+    index += 1;
+}
+
+var pins = document.getElementsByClassName('form-control pin-no')
+Array.from(pins).forEach(function (pin) {
+    pin.addEventListener("keyup", function (event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13 || pin.value.length == 1) {
+            // Focus on the next sibling
+            pin.nextElementSibling.focus()
+        }
+    });
+})
+
+window.addEventListener('load', () => {
+    const button = document.querySelector('#clear');
+    button.addEventListener('click', () => {
+        var pinNos = document.getElementsByClassName('form-control pin-no')
+        Array.from(pinNos).forEach(function (pinNo) {
+            pinNo.value = "";
+        })
+        index = 1;
+    });
+});
