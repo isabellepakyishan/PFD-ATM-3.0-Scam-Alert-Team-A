@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         if (response.length != 0) {
             for (i = 0; i < response.length; i++) {
-                $("#alert_table").html(`<tr><td>${response[i].date}</td><td>${response[i].accountNo}</td><td>${response[i].atmId}</td></tr>`);
+                $("#alert_table").append(`<tr><td>${response[i].date}</td><td>${response[i].accountNo}</td><td>${response[i].atmId}</td></tr>`);
             }
         }
         else {
