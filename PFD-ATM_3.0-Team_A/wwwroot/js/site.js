@@ -1,17 +1,20 @@
 ﻿var fearCount = 0;
+const APIKEY = "6373dcd4c890f30a8fd1f3c2";
 
-setInterval(function () {
-    fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
-        .then(response => response.text())
-        .then(txt => {
-            if (fearCount > 1) { // Checks how many times the fear threshold has been reached
-                facialExpressionCheck(); // Shows modal
-            } else if (txt > 79) {
-                fearCount += 1
-            }
-            console.log("fear: "+txt+"\ncount: "+fearCount);
-        });
-}, 2000); // delay
+if (sessionStorage.getItem("AccountNo") != null) {
+    setInterval(function () {
+        fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
+            .then(response => response.text())
+            .then(txt => {
+                if (fearCount > 1) { // Checks how many times the fear threshold has been reached
+                    facialExpressionCheck(); // Shows modal
+                } else if (txt > 79) {
+                    fearCount += 1
+                }
+                console.log("fear: "+txt+"\ncount: "+fearCount);
+            });
+    }, 2000); // delay
+}
 
 setInterval( function () {
     fetch('/StaticFiles/depth.txt') // fetches depth diff value from python script constantly
@@ -33,6 +36,7 @@ function distanceWarning(d) {
 
 function facialExpressionCheck() {
     if (!$("#ferModal").is(":visible")) { // Checks if modal is open and skips over if it is
+        postAlert(sessionStorage.getItem("AccountNo"), 1, $.now());
         $("#ferModal").modal("show");
         fearCount = 0; // Reset fear counter
     }   
@@ -43,6 +47,23 @@ function modalHide() {
     fearCount = 0
 }
 
+function postAlert(accNo, atmId, date) {
+    let jsondata = { "atmId": atmId, "accountNo": accNo, "date": date}
+    let settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://pfdatm3teama-3b47.restdb.io/rest/atm-alerts",
+        "method": "POST",
+        "headers": {
+            "content-type": "application/json",
+            "x-apikey": APIKEY,
+            "cache-control": "no-cache"
+        },
+        "processData": false,
+        "data": JSON.stringify(jsondata)
+    }
+    $.ajax(settings).done();
+}
 
 var index = 1;
 
@@ -61,11 +82,12 @@ function OnKeyPadPressed(number) {
 
     index += 1;
 }
-
-//$("#account-no").keypress(function () {
-//    if ($("#account-no").val().toString().length == 12)
-//        $("#checkAccountExists").removeAttr("disabled");
-//})
+setInterval(function () {
+    $("#account-no").keypress(function () {
+        if ($("#account-no").val().toString().length == 12)
+            $("#checkAccountExists").removeAttr("disabled");
+    });
+});
 
 var pins = document.getElementsByClassName('form-control pin-no');
 
