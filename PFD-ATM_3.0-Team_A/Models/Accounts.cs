@@ -6,12 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PFD_ATM_3._0_Team_A.Models
 {
-    public class Accounts : IModel<string>
+    public class Accounts
     {
         [Display(Name = "Account Number")]
         [Required(ErrorMessage = "Account Number must be 12 digits")]
         [StringLength(12, MinimumLength = 12)]
-        public string ID { get; set; }
+        public string AccountNo { get; set; }
 
         [Display(Name = "Name")]
         public string Name { get; set; }
