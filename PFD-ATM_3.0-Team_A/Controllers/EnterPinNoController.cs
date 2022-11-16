@@ -23,6 +23,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             string pinNo = pin1 + pin2 + pin3 + pin4 + pin5 + pin6 + pin7;
             HttpContext.Session.SetString("EnteredPinNo", pinNo);
+            HttpContext.Session.SetInt32("PinEntryCount", 1);
 
             return RedirectToAction("Index", "MainMenu");
         }
