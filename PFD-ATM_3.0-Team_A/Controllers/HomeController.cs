@@ -27,7 +27,9 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             if (accountExists)
             {
+                Accounts retrievedAccount = accountContext.GetAccount(accountNo);
                 HttpContext.Session.SetString("AccountNo", accountNo);
+                HttpContext.Session.SetString("PinNo", retrievedAccount.Pin);
                 return RedirectToAction("Index", "EnterPinNo");
             }
             else
