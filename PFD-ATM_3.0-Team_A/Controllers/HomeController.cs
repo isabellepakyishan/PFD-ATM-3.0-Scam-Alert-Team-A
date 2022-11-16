@@ -1,21 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using PFD_ATM_3._0_Team_A.Models;
-using System;
-using System.Web;
-using System.Net.Http;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using PFD_ATM_3._0_Team_A.Models;
+using PFD_ATM_3._0_Team_A.DAL;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class HomeController : Controller
     {
+        private AccountsDAL accountContext = new AccountsDAL();
         public IActionResult Index()
         {
 
@@ -25,6 +18,21 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public ActionResult StoreAccountNo(IFormCollection form)
+        {
+            string accountNo = form["accountNo"];
+            bool accountExists = accountContext.IsAccountExist(accountNo);
+
+            if (accountExists)
+            {
+                HttpContext.Session.SetString("AccountNo", accountNo);
+                return RedirectToAction("Index", "EnterPinNo");
+            }
+            else
+
+                return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
