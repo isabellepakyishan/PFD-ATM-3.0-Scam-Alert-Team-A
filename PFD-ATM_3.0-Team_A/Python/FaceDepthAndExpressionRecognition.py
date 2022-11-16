@@ -75,6 +75,8 @@ while True:
     cv2.imshow("Image", img)
     cv2.waitKey(1)  # wait one millisecond between capturing
     if cv2.getWindowProperty("Image", cv2.WND_PROP_VISIBLE) < 1:
+        print("fer0.0")
+        sys.stdout.flush()
         break
 cv2.destroyAllWindows();
 

@@ -1,20 +1,26 @@
 ﻿var fearCount = 0;
 const APIKEY = "6373dcd4c890f30a8fd1f3c2";
 
-if (sessionStorage.getItem("AccountNo") != null) {
-    setInterval(function () {
-        fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
-            .then(response => response.text())
-            .then(txt => {
-                if (fearCount > 1) { // Checks how many times the fear threshold has been reached
-                    facialExpressionCheck(); // Shows modal
-                } else if (txt > 79) {
-                    fearCount += 1
-                }
-                console.log("fear: "+txt+"\ncount: "+fearCount);
-            });
-    }, 2000); // delay
-}
+var fear = setInterval(function () {
+    if (sessionStorage.getItem("AccountNo") != null) {
+        clearInterval(fear);
+        setInterval(function () {
+            fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
+                .then(response => response.text())
+                .then(txt => {
+                    if (fearCount > 1) { // Checks how many times the fear threshold has been reached
+                        facialExpressionCheck(); // Shows modal
+                    } else if (txt > 79) {
+                        fearCount += 1
+                    }
+                    console.log("fear: " + txt + "\ncount: " + fearCount);
+                });
+        }, 2000); // delay
+    } else {
+        getAccountNo();
+    }
+}, 3000);
+
 
 setInterval( function () {
     fetch('/StaticFiles/depth.txt') // fetches depth diff value from python script constantly
@@ -123,3 +129,18 @@ window.addEventListener('load', () => {
         })
     });
 });
+
+function getAccountNo() {
+    $.ajax({
+        type: "POST",
+        url: "/Home/AjaxCallAccountNo",
+        data: { "sessionName": "AccountNo" },
+        success: function (response) {
+            if (response != null) {
+                sessionStorage.setItem("AccountNo", response);
+            } else {
+                console.log("Session object not found.");
+            }
+        }
+    });
+}

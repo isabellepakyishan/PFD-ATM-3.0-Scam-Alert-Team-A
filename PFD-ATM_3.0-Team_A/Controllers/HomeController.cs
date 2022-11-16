@@ -37,6 +37,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public IActionResult AjaxCallAccountNo(string sessionName)
+        {
+            return Json(HttpContext.Session.GetString(sessionName));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
