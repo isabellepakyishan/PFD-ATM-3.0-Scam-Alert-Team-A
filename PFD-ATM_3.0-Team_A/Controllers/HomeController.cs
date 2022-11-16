@@ -27,14 +27,20 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             if (accountExists)
             {
-                Accounts retrievedAccount = accountContext.GetAccount(accountNo);
+                /*Accounts retrievedAccount = accountContext.GetAccount(accountNo);*/
                 HttpContext.Session.SetString("AccountNo", accountNo);
-                HttpContext.Session.SetString("PinNo", retrievedAccount.Pin);
+                /*HttpContext.Session.SetString("PinNo", retrievedAccount.Pin);*/
                 return RedirectToAction("Index", "EnterPinNo");
             }
             else
 
                 return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult AjaxCallAccountNo(string sessionName)
+        {
+            return Json(HttpContext.Session.GetString(sessionName));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

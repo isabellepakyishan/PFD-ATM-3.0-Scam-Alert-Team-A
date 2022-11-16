@@ -61,7 +61,7 @@ namespace PFD_ATM_3._0_Team_A.DAL
             return accountFound;
         }
 
-        public Accounts GetAccount(string accountNo)
+/*        public Accounts GetAccount(string accountNo)
         {
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
@@ -87,6 +87,6 @@ namespace PFD_ATM_3._0_Team_A.DAL
             }
 
             return retrievedAccount;
-        }
+        }*/
     }
 }
