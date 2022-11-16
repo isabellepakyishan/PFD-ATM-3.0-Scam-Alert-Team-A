@@ -65,19 +65,20 @@ function postAlert(accNo, atmId, date) {
     $.ajax(settings).done();
 }
 
-var index = 1;
+var index = 0;
 
 function OnKeyPadPressed(number) {
-    const id = `#layout-wrapper > div > div > form > div:nth-child(1) > input:nth-child(${index})`
-    $(id).val($(id).val() + number);
+    const id = "#layout-wrapper > div > div > form > div:nth-child(1) > input";
+    const element = $(id)[index];
+    element.value = number;
 
-    if (index == 6) {
+    if (index == 5) {
         $("#enter").removeAttr("disabled");
         $("#asterisk").removeAttr("disabled");
         setTimeout(function () {
             $("#pin_form").submit();
         }, 3000);
-    } else if (index == 7)
+    } else if (index == 6)
         $("#pin_form").submit();
 
     index += 1;
@@ -88,6 +89,7 @@ setInterval(function () {
             $("#checkAccountExists").removeAttr("disabled");
     });
 });
+
 
 var pins = document.getElementsByClassName('form-control pin-no');
 
