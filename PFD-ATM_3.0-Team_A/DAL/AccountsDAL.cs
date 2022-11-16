@@ -65,7 +65,7 @@ namespace PFD_ATM_3._0_Team_A.DAL
         {
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT AccountNo FROM Accounts WHERE AccountNo=@enteredAccount";
+            cmd.CommandText = @"SELECT * FROM Accounts WHERE AccountNo=@enteredAccount";
             cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
 
             //Open a database connection and execute the SQL statement
@@ -81,9 +81,9 @@ namespace PFD_ATM_3._0_Team_A.DAL
                 retrievedAccount.NRIC = reader.GetString(2);
                 retrievedAccount.Contact = reader.GetString(3);
                 retrievedAccount.Pin = reader.GetString(4);
-                retrievedAccount.Balance = reader.GetInt32(5);
-                retrievedAccount.WithdrawalLimit = reader.GetInt32(6);
-                retrievedAccount.TransferLimit = reader.GetInt32(7);
+                retrievedAccount.Balance = reader.GetDecimal(5);
+                retrievedAccount.WithdrawalLimit = reader.GetDecimal(6);
+                retrievedAccount.TransferLimit = reader.GetDecimal(7);
             }
 
             return retrievedAccount;
