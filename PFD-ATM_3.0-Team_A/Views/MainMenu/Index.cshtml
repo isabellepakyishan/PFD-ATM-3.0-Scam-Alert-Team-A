@@ -20,7 +20,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="DispenseCash" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col p-1">
@@ -36,7 +36,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <button  asp-controller="DispenseCash" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col p-1">
@@ -55,7 +55,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="DispenseCash" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col p-1">
@@ -71,7 +71,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="DispenseCash" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col p-1">
@@ -87,25 +87,24 @@
 
         <div class="row">
             <div class="col-xl-12 col-md-14">
-                <a href="select-account-type.html" style="color: white;">
-
-                    <!-- card -->
-                    <div class="card card-h-100">
-                        <!-- card body -->
-                        <button type="button" class="btn btn-dark waves-effect waves-light">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col" style="font-size: 23px;">
-                                        Other Cash Amounts
-                                    </div>
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <button asp-controller="EnterWithdrawalAmount" type="submit" class="btn btn-dark waves-effect waves-light" >
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 23px;">
+                                    Other Cash Amounts
                                 </div>
                             </div>
-                        </button>
-                        <!-- end card body -->
-                    </div><!-- end card -->
+                        </div>
+                    </button>
+                    <!-- end card body -->
+                </div><!-- end card -->
                 </a>
             </div><!-- end col -->
         </div>
+
     </div>
     <div class="col-5">
         <div class="row" style="margin-top: 58.78px;">
