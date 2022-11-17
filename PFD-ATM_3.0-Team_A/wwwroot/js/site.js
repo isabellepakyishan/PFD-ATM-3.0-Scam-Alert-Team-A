@@ -27,7 +27,7 @@ setInterval( function () {
         .then(response => response.text())
         .then(txt => {
             distanceWarning(txt); // Shows modal
-            console.log("depth_diff: "+txt);
+            //console.log("depth_diff: "+txt);
         });
 }, 2500); // delay
 
@@ -138,8 +138,6 @@ function getAccountNo() {
         success: function (response) {
             if (response != null) {
                 sessionStorage.setItem("AccountNo", response);
-            } else {
-                console.log("Session object not found.");
             }
         }
     });
