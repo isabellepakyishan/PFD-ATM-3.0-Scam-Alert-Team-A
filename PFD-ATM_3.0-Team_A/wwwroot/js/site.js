@@ -1,5 +1,5 @@
-﻿var fearCount = 0;
-const APIKEY = "6373dcd4c890f30a8fd1f3c2";
+﻿const APIKEY = "6373dcd4c890f30a8fd1f3c2";
+//const spawner = require('child_process').spawn
 
 var fear = setInterval(function () {
     if (sessionStorage.getItem("AccountNo") != null) {
@@ -8,14 +8,12 @@ var fear = setInterval(function () {
             fetch('/StaticFiles/fear.txt') // fetches fear value from python script constantly
                 .then(response => response.text())
                 .then(txt => {
-                    if (fearCount > 1) { // Checks how many times the fear threshold has been reached
+                    if (txt.includes("true")) { // Checks how many times the fear threshold has been reached
                         facialExpressionCheck(); // Shows modal
-                    } else if (txt > 79) {
-                        fearCount += 1
                     }
-                    console.log("fear: " + txt + "\ncount: " + fearCount);
+                    console.log("has fear: " + txt);
                 });
-        }, 2000); // delay
+        }, 500); // delay
     } else {
         getAccountNo();
     }
@@ -42,19 +40,40 @@ function distanceWarning(d) {
 
 function facialExpressionCheck() {
     if (!$("#ferModal").is(":visible")) { // Checks if modal is open and skips over if it is
-        postAlert(sessionStorage.getItem("AccountNo"), 1, $.now());
+        getClip()
+            .then(vid => {
+                console.log(vid);
+                postAlert(sessionStorage.getItem("AccountNo"), 1, $.now(), vid);
+            });
         $("#ferModal").modal("show");
-        fearCount = 0; // Reset fear counter
     }   
 }
 
 function modalHide() {
     $(".modal").modal("hide");
-    fearCount = 0
 }
+/*function postAlert(accNo, atmId, date) {
+    fetch("/StaticFiles/output.avi")
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-function postAlert(accNo, atmId, date) {
-    let jsondata = { "atmId": atmId, "accountNo": accNo, "date": date}
+            return response.blob();
+        })
+        .then(function (blob) {
+            const file = new File([blob], 'output.avi', { type: 'video/x-msvideo' });
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+}*/
+function postAlert(accNo, atmId, date, clip) {
+    let jsondata = { "atmId": atmId, "accountNo": accNo, "date": date, "clip": clip }
     let settings = {
         "async": true,
         "crossDomain": true,
@@ -69,6 +88,12 @@ function postAlert(accNo, atmId, date) {
         "data": JSON.stringify(jsondata)
     }
     $.ajax(settings).done();
+}
+
+function getClip() {
+    return fetch("/StaticFiles/vid.txt")
+        .then(response => response.text())
+        .then(text => text);
 }
 
 var index = 0;

@@ -65,6 +65,13 @@ namespace PFD_ATM_3._0_Team_A
                     catch (Exception p) { }
 
                 });
+                start.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (e.Data != null)
+                    {
+                        Debug.WriteLine(e.Data);
+                    }
+                });
 
                 start.Start();
                 start.BeginOutputReadLine();
