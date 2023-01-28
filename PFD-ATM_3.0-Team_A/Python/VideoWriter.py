@@ -11,12 +11,12 @@ def WriteVid():
     # Define the codec and create VideoWriter object
     width= int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fourcc = cv2.VideoWriter_fourcc("D","I","V","X")
+    fourcc = cv2.VideoWriter_fourcc(*'H264')
     video_file_count = 1
 
     start = time.time()
     ##video_file = os.path.join("output", str(video_file_count) + ".avi")
-    out = cv2.VideoWriter("Static/output.avi", fourcc, 20.0, (width, height))
+    out = cv2.VideoWriter("Static/output.mp4", fourcc, 20.0, (width, height))
 
     while True:
         success, img = cap.read()
@@ -42,11 +42,13 @@ def StoreVid():
         s3 = boto3.client('s3')
 
         bucket_name = 'mypfdalertbucket'
-        vid_path = 'Static/output.avi'
+        vid_path = 'Static/output.mp4'
         inner_vid_path = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + vid_path.split('/')[-1]
-        s3.upload_file(vid_path, bucket_name, inner_vid_path)
+        s3.upload_file(vid_path, bucket_name, inner_vid_path, ExtraArgs={'ContentType': "video/mp4"})
 
-        vid_link = s3.generate_presigned_url('get_object', Params={'Bucket': bucket_name, 'Key': inner_vid_path})
+        vid_link = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': bucket_name, 'Key': inner_vid_path}, ExpiresIn=604800)
     except Exception as e:
         return str(e)
     else:
