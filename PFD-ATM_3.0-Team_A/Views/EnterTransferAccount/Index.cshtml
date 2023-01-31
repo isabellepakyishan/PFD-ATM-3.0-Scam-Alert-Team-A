@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Enter Transfer Account";
+}
+
+<div class="row">
+    <div class="col-xl-3"></div>
+    <div class="col-xl-6 text-center">
+        <h1 class="mb-sm-0">Transfer Funds</h1>
+        <br>
+        <br>
+        <label class="form-label" style="font-size: 25px;">Please enter account number to be transferred to.</label>
+    </div>
+    <div class="col-xl-3"></div>
+</div>
+
+<form asp-controller="EnterTransferAccount" asp-action="StoreTransferAccountNo">
+    <div class="row">
+        <div class="col-xl-3"></div>
+        <div class="col-xl-6 col-md-6">
+            <input name="transferAccountNo" class="form-control transfer-account-no" type="text" maxlength="12" id="account-no" onkeypress="checkLength()">
+        </div>
+        <div class="col-xl-3"></div>
+    </div>
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-4"></div>
+        <div class="col-xl-2 col-md-6">
+            <div class="card card-h-100">
+                <button type="button" class="btn btn-dark waves-effect waves-light" onclick="clearAccountField()">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Clear
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-6">
+            <div class="card card-h-100">
+                <button asp-controller="EnterTransferAccount" asp-action="StoreTransferAccountNo" style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="checkAccountExists">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Enter
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-4"></div>
+   </div>
+</form>
