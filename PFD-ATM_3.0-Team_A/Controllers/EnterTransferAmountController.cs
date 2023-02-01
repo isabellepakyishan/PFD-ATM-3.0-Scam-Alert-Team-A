@@ -1,21 +1,45 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PFD_ATM_3._0_Team_A.DAL;
+using PFD_ATM_3._0_Team_A.Models;
 using System;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class EnterTransferAmountController : Controller
     {
+        private AccountsDAL accountContext = new AccountsDAL();
         public IActionResult Index()
         {
             return View();
         }
 
-        public ActionResult StoreTransferAmount(IFormCollection form)
+        public ActionResult CheckTransferAmount(IFormCollection form)
         {
-            int transferAmount = Convert.ToInt32(form["transferAmount"]);
-            HttpContext.Session.SetInt32("TransferAmount", transferAmount);
-            return RedirectToAction("Index", "ConfirmTransfer");
+            string accountNo = HttpContext.Session.GetString("AccountNo");
+            Accounts retrievedAccount = accountContext.GetAccount(accountNo);
+            
+            decimal intendedTransferAmount = Convert.ToDecimal(form["transferAmount"]);
+            decimal accountTransferLimit = retrievedAccount.TransferLimit;
+
+            if (intendedTransferAmount > accountTransferLimit)
+            {
+                TempData["Message"] = "Transfer amount entered exceeds daily transfer limit. Please enter a valid funds transfer amount.";
+                return RedirectToAction("Index", "EnterTransferAmount");
+            }
+            else
+            {
+                string transferAmountString = Convert.ToString(intendedTransferAmount);
+                HttpContext.Session.SetString("TransferAmount", transferAmountString);
+                return RedirectToAction("Index", "ConfirmTransfer");
+            }
         }
+
+        //public ActionResult StoreTransferAmount(IFormCollection form)
+        //{
+        //    int transferAmount = Convert.ToInt32(form["transferAmount"]);
+        //    HttpContext.Session.SetInt32("TransferAmount", transferAmount);
+        //    return RedirectToAction("Index", "ConfirmTransfer");
+        //}
     }
 }
