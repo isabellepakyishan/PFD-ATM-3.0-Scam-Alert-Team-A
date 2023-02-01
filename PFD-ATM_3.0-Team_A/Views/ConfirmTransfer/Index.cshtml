@@ -9,22 +9,60 @@
     <div class="col-6">
         <h3 class="mb-sm-0 text-center">Confirm Bank Transfer Details </h3>
         <br />
-        <table id="datatable" class="table table-bordered dt-responsive w-100">
+        <table id="datatable" class="table table-bordered dt-responsive w-100" style="font-size:20px">
             <tbody>
                 <tr>
                     <td> Transfer from: </td>
+                    <td> @Context.Session.GetString("AccountName") </td>
                     <td> @Context.Session.GetString("AccountNo") </td>
                 </tr>
                 <tr>
                     <td> Transfer to: </td>
+                    <td> @Context.Session.GetString("TransferAccountName") </td>
                     <td> @Context.Session.GetString("TransferAccountNo") </td>
                 </tr>
                 <tr>
                     <td> Amount to be Transferred: </td>
-                    <td> @Context.Session.GetInt32("TransferAmount") </td>
+                    <td colspan=2> $@Context.Session.GetInt32("TransferAmount") </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="col-3"></div>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-3 col-md-6"></div>
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                <!-- card body -->
+                <button type="button" class="btn btn-dark waves-effect waves-light">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Clear
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                    <!-- card body -->
+                    <button asp-controller="EnterTransferAmount" asp-action="ProceedWithTransfer" type="submit" class="btn btn-dark waves-effect waves-light">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 20px;">
+                                    Confirm
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-3 col-md-6"></div>
+    </div>
 </div>
