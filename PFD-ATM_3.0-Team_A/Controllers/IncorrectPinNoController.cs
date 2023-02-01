@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PFD_ATM_3._0_Team_A.DAL;
+using PFD_ATM_3._0_Team_A.Models;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class IncorrectPinNoController : Controller
     {
+        private AccountsDAL accountContext = new AccountsDAL();
         public IActionResult Index()
         {
             //int? counter = HttpContext.Session.GetInt32("PinEntryCount");
@@ -30,6 +33,16 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             if (reenteredPin == storedPin)
             {
+                string accountNo = HttpContext.Session.GetString("AccountNo");
+                Accounts retrievedAccount = accountContext.GetAccount(accountNo);
+
+                int intendedWithdrawalAmount = (int)HttpContext.Session.GetInt32("WithdrawalAmount");
+                decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+
+                if (ModelState.IsValid)
+                {
+                    accountContext.UpdateAccountBalance(accountNo, finalBalance);
+                }
                 return RedirectToAction("Index", "DispenseCash");
             }
             else
