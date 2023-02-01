@@ -21,6 +21,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             int intendedWithdrawalAmount = Convert.ToInt32(form["withdrawalAmount"]);
             int accountWithdrawalLimit = Convert.ToInt32(retrievedAccount.WithdrawalLimit);
+            decimal accountBalance = retrievedAccount.Balance;
 
             int checkWithdrawalMultiples = intendedWithdrawalAmount % 10;
 
@@ -29,9 +30,19 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 TempData["Message"] = "Invalid amount entered. Please enter a valid withdrawal amount.";
                 return RedirectToAction("Index", "EnterWithdrawalAmount");
             }
+            else if (intendedWithdrawalAmount == 0)
+            {
+                TempData["Message"] = "You cannot withdraw $0🤯 Please enter a valid withdrawal amount.";
+                return RedirectToAction("Index", "EnterWithdrawalAmount");
+            }
             else
             {
-                if (intendedWithdrawalAmount > accountWithdrawalLimit)
+                if (intendedWithdrawalAmount > accountBalance)
+                {
+                    TempData["Message"] = "Withdrawal amount entered exceeds your account balance. Please enter a valid withdrawal amount.";
+                    return RedirectToAction("Index", "EnterWithdrawalAmount");
+                }
+                else if (intendedWithdrawalAmount > accountWithdrawalLimit)
                 {
                     TempData["Message"] = "Withdrawal amount entered exceeds daily withdrawal limit. Please enter a valid withdrawal amount.";
                     return RedirectToAction("Index", "EnterWithdrawalAmount");
