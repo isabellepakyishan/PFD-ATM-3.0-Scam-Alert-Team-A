@@ -31,7 +31,7 @@ namespace PFD_ATM_3._0_Team_A.DAL
 
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT AccountNo FROM CustInfo WHERE AccountNo=@enteredAccount";
+            cmd.CommandText = @"SELECT AccountNo FROM Accounts WHERE AccountNo=@enteredAccount";
             cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
 
             //Open a database connection and execute the SQL statement
@@ -65,7 +65,7 @@ namespace PFD_ATM_3._0_Team_A.DAL
         {
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT * FROM CustInfo WHERE AccountNo=@enteredAccount";
+            cmd.CommandText = @"SELECT * FROM Accounts WHERE AccountNo=@enteredAccount";
             cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
 
             //Open a database connection and execute the SQL statement
