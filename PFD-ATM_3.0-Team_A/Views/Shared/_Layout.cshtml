@@ -117,6 +117,31 @@
                 </div>
             </div>
         </div>
+        <!--Suspicious Withdrawal Modal-->
+        <div class="modal fade" id="susModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center w-100" id="susModalTitle">Hold on!</h2>
+                        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="susModalBody">
+                        <div class="text-center">
+                            <p>
+                                Our systems have flagged your account for withdrawing more money than you normally would.
+                                If you require help or believe you have fallen prey to a scam, please call our Personal Banking hotline at <strong>6363 3333</strong> and press 9 to report fraud.
+                                To temporarily freeze all your accounts, you can activate the emergency kill switch via the OCBC Digital app, selected OCBC ATMs or our hotline (press 8)
+                            </p>
+                            <p>Do you wish to proceed?</p>
+                            <div class="d-sm-inline-flex">
+                                <a href="@Url.Action("Index", "DispenseCash")" class="btn btn-primary mx-2 text-white">Yes</a>
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-primary mx-2 text-white">No (End Transaction)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @{
             await Html.RenderPartialAsync("_Footer.cshtml");

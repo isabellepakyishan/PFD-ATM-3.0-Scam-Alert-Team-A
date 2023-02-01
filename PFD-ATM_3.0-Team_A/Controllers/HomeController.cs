@@ -31,6 +31,8 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 HttpContext.Session.SetString("AccountNo", accountNo);
                 HttpContext.Session.SetString("AccountName", retrievedAccount.Name);
                 HttpContext.Session.SetString("PinNo", retrievedAccount.Pin);
+                HttpContext.Session.SetString("AvgWithdrawal", retrievedAccount.AvgWithdrawal.ToString());
+                HttpContext.Session.SetString("TimesWithdrawn", retrievedAccount.TimesWithdrawn.ToString());
                 return RedirectToAction("Index", "EnterPinNo");
             }
             else

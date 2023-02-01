@@ -32,5 +32,11 @@ namespace PFD_ATM_3._0_Team_A.Models
 
         [DataType(DataType.Currency)]
         public decimal TransferLimit { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal AvgWithdrawal { get; set; }
+
+        [Display(Name = "Number of times withdrawn")]
+        public int TimesWithdrawn { get; set; }
     }
 }
