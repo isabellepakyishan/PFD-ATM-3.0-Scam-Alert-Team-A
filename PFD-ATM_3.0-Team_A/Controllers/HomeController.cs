@@ -20,7 +20,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             return View();
         }
 
-        public ActionResult StoreAccountNo(IFormCollection form)
+        public ActionResult StoreAccountInfo(IFormCollection form)
         {
             string accountNo = form["accountNo"];
             bool accountExists = accountContext.IsAccountExist(accountNo);
