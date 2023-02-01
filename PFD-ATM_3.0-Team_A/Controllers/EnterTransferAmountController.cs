@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using PFD_ATM_3._0_Team_A.DAL;
 using PFD_ATM_3._0_Team_A.Models;
 using System;
+using PFD_ATM_3._0_Team_A.DAL;
+using PFD_ATM_3._0_Team_A.Models;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
