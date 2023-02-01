@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
-    public class EnterWithdrawlAmountController : Controller
+    public class EnterTransferAmountController : Controller
     {
         public IActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             {
                 if (enteredPin == storedPin)
                 {
-                    return RedirectToAction("Index", "DispenseCash");
+                    return RedirectToAction("Index", "TransferFunds");
                 }
                 else
                 {
@@ -43,3 +43,4 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         }
     }
 }
+
