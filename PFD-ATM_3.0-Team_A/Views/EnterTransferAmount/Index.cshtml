@@ -1,26 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Enter Withdrawal Amount";
+    ViewData["Title"] = "Enter Transfer Amount";
 }
 
 <div class="row">
-    <div class="col-xl-3"></div>
-    <div class="col-xl-6 text-center">
-        <h1 class="mb-sm-0">Withdraw Cash</h1>
+    <div class="col">
+        <h1 class="mb-sm-0">Transfer Funds</h1>
         <br>
-        <br>        
-        <h3 class="mb-sm-0">Please enter amount in multiples of $10 or $50 </h3>
+        <br>
+        <h3 class="mb-sm-0 text-center">Please enter amount in multiples of $10 or $50 </h3>
         <br>
     </div>
 </div>
-<form>
-
+<form asp-controller="EnterTransferAmount" asp-action="StoreTransferAmount">
     <div class="row">
         <div class="col-xl-2"></div>
         <div class="col-xl-8">
             <div class="input-group">
                 <div class="input-group-text">$</div>
-                <input class="form-control 2f" type="number" style="height: 100px; font-size: 40px;"
-                    placeholder="0.00" id="withdrawal-amount">
+                <input name="transferAmount" class="form-control 2f" type="number" style="height: 100px; font-size: 40px;"
+                    placeholder="0.00" id="transfer-amount">
             </div>
         </div>
         <div class="col-xl-2"></div>
@@ -47,7 +45,7 @@
             <!-- card -->
             <div class="card card-h-100">
                     <!-- card body -->
-                    <button asp-controller="EnterWithdrawalAmount" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="EnterTransferAmount" asp-action="StoreTransferAmount" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col" style="font-size: 20px;">

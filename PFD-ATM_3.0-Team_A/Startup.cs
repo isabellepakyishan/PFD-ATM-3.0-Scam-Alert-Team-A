@@ -61,6 +61,14 @@ namespace PFD_ATM_3._0_Team_A
                 EnableDirectoryBrowsing = true
             });
 
+            app.Use((context, next) =>
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
+                context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                return next();
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();

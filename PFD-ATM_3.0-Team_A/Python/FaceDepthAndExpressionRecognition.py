@@ -3,10 +3,16 @@ import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
 from deepface import DeepFace
 import sys
+import os
+import time
+from VideoWriter import *
 
 cap = cv2.VideoCapture(0)
 detector = FaceMeshDetector(maxFaces=2)
 # detected_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+start = time.time()
+
+videoWriterScript = 'VideoWriter.py'
 
 while True:
     success, img = cap.read()
@@ -17,7 +23,6 @@ while True:
         for face in faces:
             pointLeft = face[145]
             pointRight = face[374]
-            de_index = 0
 
             w, _ = detector.findDistance(pointLeft, pointRight)
             W = 6.3  # Average of eye width of men n women
@@ -37,24 +42,37 @@ while True:
 
             # Facial Expression Recognition
             face_emotions = DeepFace.analyze(img, actions=['emotion'], prog_bar=False, enforce_detection=False)
-            for emotion in face_emotions["emotion"]:
-                if emotion == "fear":
-                    print("fer{:.1f}".format(face_emotions["emotion"][emotion]))
-                    sys.stdout.flush()
-                else:
-                    continue
+            fear_lvl = face_emotions["emotion"]["fear"]
 
-                if face_emotions["emotion"][emotion] > 80:
-                    colour = (0, 140, 255)
-                else:
-                    colour = (0, 220, 255)
+            if fear_lvl < 80:
+                colour = (0, 220, 255)
+            else:
+                colour = (0, 140, 255)
 
-                # msg = "{}: {:.1f}".format(detected_emotions[de_index], face_emotions["emotion"][emotion])
-                msg = "Fear: {:.1f}".format(face_emotions["emotion"][emotion])
-                cv2.putText(img, msg, (pointRight[0] + 40, pointRight[1] - 40 + de_index * 15),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 1, cv2.LINE_AA, )
-                de_index += 1
-                break
+            msg = "Fear: {:.1f}".format(fear_lvl)
+            cv2.putText(img, msg, (pointRight[0] + 40, pointRight[1] - 40),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 1, cv2.LINE_AA, )
+
+        if fear_lvl < 80:
+            start = time.time()
+            print("ferfalse")
+            sys.stdout.flush()
+        else:
+            if time.time() - start > 3:
+
+                WriteVid()
+                vid_link = StoreVid()
+                with open("Static/vid.txt","w") as file:
+                    file.write(vid_link)
+
+                print("fertrue")
+                sys.stdout.flush()
+
+                cap = cv2.VideoCapture(0)
+                detector = FaceMeshDetector(maxFaces=2)
+                start = time.time()
+                    
+                continue
 
     if len(faces) > 1:
         cvzone.putTextRect(img, f'Depth Difference: {int(abs(faces_depth[0] - faces_depth[1]))}cm', (400, 50), scale=1, thickness=2)
@@ -66,18 +84,19 @@ while True:
             cv2.putText(img, 'Warning', (285, 265), cv2.FONT_HERSHEY_TRIPLEX, 0.8, (0, 0, 0), 2)
 
         cv2.imshow("Image", img)
-        cv2.waitKey(1)  # wait one millisecond between capturing
+        cv2.waitKey(10)  # wait one millisecond between capturing
         continue
 
     print("fd999");
     sys.stdout.flush();
 
     cv2.imshow("Image", img)
-    cv2.waitKey(1)  # wait one millisecond between capturing
+    cv2.waitKey(10)  # wait one millisecond between capturing
     if cv2.getWindowProperty("Image", cv2.WND_PROP_VISIBLE) < 1:
-        print("fer0.0")
+        print("ferfalse")
         sys.stdout.flush()
         break
+cap.release()
 cv2.destroyAllWindows();
 
 

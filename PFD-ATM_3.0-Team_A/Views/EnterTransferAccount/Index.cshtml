@@ -1,23 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Enter Account Number";
+    ViewData["Title"] = "Enter Transfer Account";
 }
 
 <div class="row">
     <div class="col-xl-3"></div>
     <div class="col-xl-6 text-center">
-        <h1 class="mb-sm-0">Welcome</h1>
+        <h1 class="mb-sm-0">Transfer Funds</h1>
         <br>
         <br>
-        <label class="form-label" style="font-size: 25px;">Please enter your account number</label>
+        <label class="form-label" style="font-size: 25px;">Please enter account number to be transferred to.</label>
     </div>
     <div class="col-xl-3"></div>
 </div>
 
-<form asp-controller="Home" asp-action="StoreAccountNo">
+<form asp-controller="EnterTransferAccount" asp-action="StoreTransferAccountNo">
     <div class="row">
         <div class="col-xl-3"></div>
         <div class="col-xl-6 col-md-6">
-            <input name="accountNo" class="form-control account-no" type="text" maxlength="12" id="account-no" onkeypress="checkLength()">
+            <input name="transferAccountNo" class="form-control transfer-account-no" type="text" maxlength="12" id="account-no" onkeypress="checkLength()">
         </div>
         <div class="col-xl-3"></div>
     </div>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-xl-2 col-md-6">
             <div class="card card-h-100">
-                <button style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="checkAccountExists">
+                <button asp-controller="EnterTransferAccount" asp-action="StoreTransferAccountNo" style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="checkAccountExists">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col" style="font-size: 20px;">
@@ -51,5 +51,5 @@
             </div>
         </div>
         <div class="col-xl-4"></div>
-    </div>
+   </div>
 </form>

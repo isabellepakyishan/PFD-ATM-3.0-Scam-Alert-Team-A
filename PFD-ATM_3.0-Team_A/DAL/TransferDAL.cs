@@ -9,12 +9,12 @@ using PFD_ATM_3._0_Team_A.Models;
 
 namespace PFD_ATM_3._0_Team_A.DAL
 {
-    public class AccountsDAL
+    public class TransferDAL
     {
         private IConfiguration Configuration { get; }
         private SqlConnection conn;
         //Constructor
-        public AccountsDAL()
+        public TransferDAL()
         {
             //Read ConnectionString from appsettings.json file
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
@@ -25,70 +25,54 @@ namespace PFD_ATM_3._0_Team_A.DAL
             conn = new SqlConnection(strConn);
         }
 
-        public bool IsAccountExist(string accountNo)
+        public bool IsRecordExist(string accountNo, string transferaccountNo)
         {
-            bool accountFound = false;
+            bool recordFound = false;
 
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT AccountNo FROM CustInfo WHERE AccountNo=@enteredAccount";
-            cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
+            cmd.CommandText = "SELECT COUNT(*) FROM TransferRecords WHERE AccountNo = @accountNo AND TransferAccountNo = @transferaccountNo";
+
+            cmd.Parameters.AddWithValue("@accountNo", accountNo);
+            cmd.Parameters.AddWithValue("@transferaccountNo", transferaccountNo);
+
 
             //Open a database connection and execute the SQL statement
             conn.Open();
 
-            SqlDataReader reader = cmd.ExecuteReader();
+            int count = (int) cmd.ExecuteScalar();
 
-            if (reader.HasRows)
+            if (count == 0)
             {
-                //Records found
-                while (reader.Read())
-                {
-                    if (reader.GetString(0) == accountNo)
-                        //The email address is used by another staff
-                        accountFound = true;
-                }
+                recordFound = false;
             }
             else
             {
-                //No record
-                accountFound = false; // The email address given does not exist
+                recordFound = true;
             }
 
-            reader.Close();
             conn.Close();
 
-            return accountFound;
+            return recordFound;
         }
 
-        public Accounts GetAccount(string accountNo)
+        public void transfer_record_save(string accountNo, string transferaccountNo, Int32 transferAmount, Int32 transferPending)
         {
             //Create a SqlCommand object and specify the SQL statement to get a staff record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT * FROM CustInfo WHERE AccountNo=@enteredAccount";
-            cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
+            cmd.CommandText = "INSERT INTO TransferRecords (AccountNo, TransferAccountNo, TransferAmount, TransferPending) VALUES (@accountNo, @transferaccountNo, @transferAmount, @transferPending)";
+
+            cmd.Parameters.AddWithValue("@accountNo", accountNo);
+            cmd.Parameters.AddWithValue("@transferaccountNo", transferaccountNo);
+            cmd.Parameters.AddWithValue("@transferAmount", transferAmount);
+            cmd.Parameters.AddWithValue("@transferPending", transferPending);
 
             //Open a database connection and execute the SQL statement
             conn.Open();
 
             SqlDataReader reader = cmd.ExecuteReader();
-
-            Accounts retrievedAccount = new Accounts();
-            while (reader.Read())
-            {
-                retrievedAccount.AccountNo = reader.GetString(0);
-                retrievedAccount.Name = reader.GetString(1);
-                retrievedAccount.NRIC = reader.GetString(2);
-                retrievedAccount.Contact = reader.GetString(3);
-                retrievedAccount.Pin = reader.GetString(4);
-                retrievedAccount.Balance = reader.GetDecimal(5);
-                retrievedAccount.WithdrawalLimit = reader.GetDecimal(6);
-                retrievedAccount.TransferLimit = reader.GetDecimal(7);
-                retrievedAccount.AvgWithdrawal = reader.GetDecimal(8);
-                retrievedAccount.TimesWithdrawn = reader.GetInt32(9);
-            }
-
-            return retrievedAccount;
+            reader.Close();
+            conn.Close();
         }
     }
 }
