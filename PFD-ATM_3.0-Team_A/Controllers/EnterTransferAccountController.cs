@@ -18,8 +18,14 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             string transferAccountNo = form["transferAccountNo"];
             bool accountExists = accountContext.IsAccountExist(transferAccountNo);
 
-            if (transferAccountNo == HttpContext.Session.GetString("AccountNo"))
+            if (!accountExists)
             {
+                TempData["Message"] = "Invalid account number entered. Please check the account number and try again.";
+                return RedirectToAction("Index", "EnterTransferAccount");
+            }
+            else if (transferAccountNo == HttpContext.Session.GetString("AccountNo"))
+            {
+                TempData["Message"] = "You are trying to transfer money to yourself?🤨";
                 return RedirectToAction("Index", "EnterTransferAccount");
             }
             else if (accountExists)
