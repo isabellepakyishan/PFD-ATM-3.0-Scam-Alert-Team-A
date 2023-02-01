@@ -21,11 +21,17 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             
             decimal intendedTransferAmount = Convert.ToDecimal(form["transferAmount"]);
             decimal accountTransferLimit = retrievedAccount.TransferLimit;
+            decimal accountBalance = retrievedAccount.Balance;
 
             if (intendedTransferAmount > accountTransferLimit)
             {
                 TempData["Message"] = "Transfer amount entered exceeds daily transfer limit. Please enter a valid funds transfer amount.";
                 return RedirectToAction("Index", "EnterTransferAmount");
+            }
+            else if (intendedTransferAmount > accountBalance)
+            {
+                TempData["Message"] = "Transfer amount entered exceeds your account balance. Please enter a valid withdrawal amount.";
+                return RedirectToAction("Index", "EnterWithdrawalAmount");
             }
             else
             {
