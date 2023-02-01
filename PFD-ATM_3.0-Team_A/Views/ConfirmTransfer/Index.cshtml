@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Confirm Transfer";
+}
+
+<div class="row justify-content-center">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h3 class="mb-sm-0 text-center">Confirm Bank Transfer Details </h3>
+        <br />
+        <table id="datatable" class="table table-bordered dt-responsive w-100">
+            <tbody>
+                <tr>
+                    <td> Transfer from: </td>
+                    <td> @Context.Session.GetString("AccountNo") </td>
+                </tr>
+                <tr>
+                    <td> Transfer to: </td>
+                    <td> @Context.Session.GetString("TransferAccountNo") </td>
+                </tr>
+                <tr>
+                    <td> Amount to be Transferred: </td>
+                    <td> @Context.Session.GetInt32("TransferAmount") </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3"></div>
+</div>

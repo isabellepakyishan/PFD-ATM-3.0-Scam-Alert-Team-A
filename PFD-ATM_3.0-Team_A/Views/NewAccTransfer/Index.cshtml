@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "New Account Transfer Confirmation";
+}
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_htJ3nq.json"
+                       background="transparent" speed="1" style="width: 640px; height: 591px;" loop autoplay>
+        </lottie-player>
+        <label class="form-label" style="font-size: 50px; text-align: center; width: 640px;">Are you sure?</label>
+        <label class="form-label" style="font-size: 25px; text-align: center; width: 640px;">You have not transfered to this account before. Do ensure that you are not being scammed. Please click confirm to continue this transaction.</label>
+    </div>
+
+    <div class="col-xl-2 col-md-6">
+        <div class="card card-h-100">
+            <button style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="confirmTransaction">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col" style="font-size: 20px;">
+                            Confirm
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-3"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/@@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
