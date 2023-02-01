@@ -13,17 +13,28 @@
     </div>
 
     <div class="col-xl-2 col-md-6">
-        <div class="card card-h-100">
-            <button style="color: white;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="confirmTransaction">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col" style="font-size: 20px;">
-                            Confirm
+        <form asp-controller="NewAccTransfer">
+            <div class="card card-h-100">
+                <button asp-controller="NewAccTransfer" asp-action="Confirm" style="color: white; margin-bottom: 10px;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="confirmTransaction">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Confirm
+                            </div>
                         </div>
                     </div>
-                </div>
-            </button>
-        </div>
+                </button>
+                <button asp-controller="NewAccTransfer" asp-action="Home" style="color: white; margin-top: 10px;" type="submit" class="btn btn-dark waves-effect waves-light" formmethod="post" id="cancelTransaction">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col" style="font-size: 20px;">
+                                Cancel
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </form>
     </div>
 
     <div class="col-3"></div>
