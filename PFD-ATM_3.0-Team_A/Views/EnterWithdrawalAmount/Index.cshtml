@@ -12,19 +12,26 @@
         <br>
     </div>
 </div>
-<form>
 
+<form asp-controller="EnterWithdrawalAmount" asp-action="CheckWithdrawalAmountAndPin">
     <div class="row">
         <div class="col-xl-2"></div>
         <div class="col-xl-8">
             <div class="input-group">
                 <div class="input-group-text">$</div>
-                <input class="form-control 2f" type="number" style="height: 100px; font-size: 40px;"
+                <input name="withdrawalAmount" class="form-control 2f" type="number" style="height: 100px; font-size: 40px;"
                     placeholder="0.00" id="withdrawal-amount">
             </div>
         </div>
         <div class="col-xl-2"></div>
     </div>
+
+    <div class="row">
+        <div class="col-xl-12 text-center">
+            <span style="color:red;">@TempData["Message"]</span>
+        </div>
+    </div>
+
     <div class="row" style="padding-top: 20px;">
         <div class="col-xl-3 col-md-6"></div>
         <div class="col-xl-3 col-md-6">
@@ -47,7 +54,7 @@
             <!-- card -->
             <div class="card card-h-100">
                     <!-- card body -->
-                    <button asp-controller="EnterWithdrawalAmount" asp-action="CheckPIN" type="submit" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="EnterWithdrawalAmount" asp-action="CheckWithdrawalAmountAndPin" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col" style="font-size: 20px;">
