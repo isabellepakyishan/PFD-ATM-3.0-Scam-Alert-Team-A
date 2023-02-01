@@ -1,45 +1,112 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PFD_ATM_3._0_Team_A.DAL;
+using PFD_ATM_3._0_Team_A.Models;
+using System;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class EnterWithdrawalAmountController : Controller
     {
+        private AccountsDAL accountContext = new AccountsDAL();
         public IActionResult Index()
         {
             return View();
         }
 
-        public ActionResult CheckPIN()
+        public ActionResult CheckWithdrawalAmountAndPin(IFormCollection form)
         {
-            var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
-            var storedPin = HttpContext.Session.GetString("PinNo");
+            string accountNo = HttpContext.Session.GetString("AccountNo");
+            Accounts retrievedAccount = accountContext.GetAccount(accountNo);
 
-            if (enteredPin.Length == 6)
+            int intendedWithdrawalAmount = Convert.ToInt32(form["withdrawalAmount"]);
+            int accountWithdrawalLimit = Convert.ToInt32(retrievedAccount.WithdrawalLimit);
+
+            int checkWithdrawalMultiples = intendedWithdrawalAmount % 10;
+
+            if (checkWithdrawalMultiples != 0)
             {
-                if (enteredPin == storedPin)
-                {
-                    return RedirectToAction("Index", "DispenseCash");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "IncorrectPinNo");
-                }
+                TempData["Message"] = "Invalid amount entered. Please enter a valid withdrawal amount.";
+                return RedirectToAction("Index", "EnterWithdrawalAmount");
             }
             else
             {
-                char lastPin = enteredPin[enteredPin.Length - 1];
-                string first6Pin = enteredPin.Remove(6);
-                if (lastPin == '*' && first6Pin == storedPin)
+                if (intendedWithdrawalAmount > accountWithdrawalLimit)
                 {
-                    return RedirectToAction("Index", "AuthenticationError");
+                    TempData["Message"] = "Withdrawal amount entered exceeds daily withdrawal limit. Please enter a valid withdrawal amount.";
+                    return RedirectToAction("Index", "EnterWithdrawalAmount");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "IncorrectPinNo");
+                    HttpContext.Session.SetInt32("WithdrawalAmount", intendedWithdrawalAmount);
+                    
+                    var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
+                    var storedPin = HttpContext.Session.GetString("PinNo");
+
+                    if (enteredPin.Length == 6)
+                    {
+                        if (enteredPin == storedPin)
+                        {
+                            decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+                            
+                            if (ModelState.IsValid)
+                            {
+                                accountContext.UpdateAccountBalance(accountNo, finalBalance);
+                            }
+                            return RedirectToAction("Index", "DispenseCash");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "IncorrectPinNo");
+                        }
+                    }
+                    else
+                    {
+                        char lastPin = enteredPin[enteredPin.Length - 1];
+                        string first6Pin = enteredPin.Remove(6);
+                        if (lastPin == '*' && first6Pin == storedPin)
+                        {
+                            return RedirectToAction("Index", "AuthenticationError");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "IncorrectPinNo");
+                        }
+                    }
                 }
             }
-            return null;
         }
+
+        //public ActionResult CheckPIN()
+        //{
+        //    var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
+        //    var storedPin = HttpContext.Session.GetString("PinNo");
+
+        //    if (enteredPin.Length == 6)
+        //    {
+        //        if (enteredPin == storedPin)
+        //        {
+        //            return RedirectToAction("Index", "DispenseCash");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "IncorrectPinNo");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        char lastPin = enteredPin[enteredPin.Length - 1];
+        //        string first6Pin = enteredPin.Remove(6);
+        //        if (lastPin == '*' && first6Pin == storedPin)
+        //        {
+        //            return RedirectToAction("Index", "AuthenticationError");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "IncorrectPinNo");
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }
