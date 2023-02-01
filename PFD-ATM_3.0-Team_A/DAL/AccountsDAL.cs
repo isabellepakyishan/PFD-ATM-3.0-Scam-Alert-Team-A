@@ -86,7 +86,25 @@ namespace PFD_ATM_3._0_Team_A.DAL
                 retrievedAccount.TransferLimit = reader.GetDecimal(7);
             }
 
+            conn.Close();
+
             return retrievedAccount;
+        }
+
+        public int UpdateAccountBalance(string accountNo, decimal finalBalance)
+        {
+            Accounts retrievedAccount = GetAccount(accountNo);
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"UPDATE Accounts SET AccountBalance=@accountBalance WHERE AccountNo=@enteredAccount";
+
+            cmd.Parameters.AddWithValue("@accountBalance", finalBalance);
+            cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
+
+            conn.Open();
+            int count = cmd.ExecuteNonQuery();
+            conn.Close();
+            return count;
         }
     }
 }
