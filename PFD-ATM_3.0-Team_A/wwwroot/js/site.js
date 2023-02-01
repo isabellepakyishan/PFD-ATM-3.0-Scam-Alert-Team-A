@@ -48,6 +48,12 @@ function facialExpressionCheck() {
     }   
 }
 
+function susWithdrawal() {
+    if (!$("#susModal").is(":visible")) { // Checks if modal is open and skips over if it is
+        postAlert(sessionStorage.getItem("AccountNo"), 1, $.now());
+        $("#susModal").modal("show");
+}
+
 function modalHide() {
     $(".modal").modal("hide");
     fearCount = 0
@@ -59,6 +65,30 @@ function postAlert(accNo, atmId, date) {
         "async": true,
         "crossDomain": true,
         "url": "https://pfdatm3teama-3b47.restdb.io/rest/atm-alerts",
+        "method": "POST",
+        "headers": {
+            "content-type": "application/json",
+            "x-apikey": APIKEY,
+            "cache-control": "no-cache"
+        },
+        "processData": false,
+        "data": JSON.stringify(jsondata)
+    }
+    $.ajax(settings).done();
+}
+
+function suspostAlert(accNo, atmId, withdrawalAmt, avgWithdrawal, date) {
+    let jsondata = {
+        "atmId": atmId,
+        "accountNo": accNo,
+        "withdrawalAmt": withdrawalAmt,
+        "avgWitdrawal": avgWithdrawal,
+        "date": date
+    }
+    let settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://pfdatm3teama-3b47.restdb.io/rest/sus-transactions",
         "method": "POST",
         "headers": {
             "content-type": "application/json",

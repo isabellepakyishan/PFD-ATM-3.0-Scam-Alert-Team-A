@@ -84,6 +84,8 @@ namespace PFD_ATM_3._0_Team_A.DAL
                 retrievedAccount.Balance = reader.GetDecimal(5);
                 retrievedAccount.WithdrawalLimit = reader.GetDecimal(6);
                 retrievedAccount.TransferLimit = reader.GetDecimal(7);
+                retrievedAccount.AvgWithdrawal = reader.GetDecimal(8);
+                retrievedAccount.TimesWithdrawn = reader.GetInt32(9);
             }
 
             return retrievedAccount;
