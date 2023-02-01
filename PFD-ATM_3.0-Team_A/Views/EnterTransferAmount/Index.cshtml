@@ -8,12 +8,12 @@
         <h1 class="mb-sm-0">Transfer Funds</h1>
         <br>
         <br>
-        <h3 class="mb-sm-0 text-center">Please enter amount in multiples of $10 or $50 </h3>
+        <h3 class="mb-sm-0 text-center">Please enter amount to be transferred. </h3>
         <br>
     </div>
     <div class="col-xl-3"></div>
 </div>
-<form asp-controller="EnterTransferAmount" asp-action="StoreTransferAmount">
+<form asp-controller="EnterTransferAmount" asp-action="CheckTransferAmount">
     <div class="row">
         <div class="col-xl-2"></div>
         <div class="col-xl-8">
@@ -25,6 +25,13 @@
         </div>
         <div class="col-xl-2"></div>
     </div>
+
+    <div class="row">
+        <div class="col-xl-12 text-center">
+            <span style="color:red;">@TempData["Message"]</span>
+        </div>
+    </div>
+
     <div class="row" style="padding-top: 20px;">
         <div class="col-xl-3 col-md-6"></div>
         <div class="col-xl-3 col-md-6">
@@ -47,7 +54,7 @@
             <!-- card -->
             <div class="card card-h-100">
                     <!-- card body -->
-                    <button asp-controller="EnterTransferAmount" asp-action="StoreTransferAmount" type="submit" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="EnterTransferAmount" asp-action="CheckTransferAmount" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col" style="font-size: 20px;">
