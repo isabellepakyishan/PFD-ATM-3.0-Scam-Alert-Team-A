@@ -53,6 +53,7 @@ function susWithdrawal() {
     if (!$("#susModal").is(":visible")) { // Checks if modal is open and skips over if it is
         postAlert(sessionStorage.getItem("AccountNo"), 1, $.now());
         $("#susModal").modal("show");
+    }
 }
 
 function modalHide() {
