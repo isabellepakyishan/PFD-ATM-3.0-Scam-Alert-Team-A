@@ -2,12 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using PFD_ATM_3._0_Team_A.DAL;
 using PFD_ATM_3._0_Team_A.Models;
+using System;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
     public class AuthenticationErrorController : Controller
     {
         private AccountsDAL accountContext = new AccountsDAL();
+        private TransferRecordsDAL transferContext = new TransferRecordsDAL();
+        private WithdrawalRecordsDAL withdrawalContext = new WithdrawalRecordsDAL();
+
         public IActionResult Index()
         {
             //int? counter = HttpContext.Session.GetInt32("PinEntryCount");
@@ -18,8 +22,13 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
             int count = HttpContext.Session.GetInt32("PinEntryCount") ?? 0;
             var pin = HttpContext.Session.GetString("EnteredPinNo");
-            var hasStar = pin.EndsWith('*');
+            string transactionType = HttpContext.Session.GetString("TransactionType");
+            
+            string accountNo = HttpContext.Session.GetString("AccountNo");
+            string transferAccountNo = HttpContext.Session.GetString("TransferAccountNo");
+            Accounts retrievedAccount = accountContext.GetAccount(accountNo);
 
+            var hasStar = pin.EndsWith('*');
             string first6Pin = pin.Remove(6);
 
             if (hasStar)
@@ -28,7 +37,38 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 HttpContext.Session.SetInt32("PinEntryCount", count);
             }
 
-            if (count > 3) return RedirectToAction("Index", "ServiceUnavailable");
+            if (count > 3)
+            {
+                if (transactionType == "Withdrawal")
+                {
+                    int intendedWithdrawalAmount = (int)HttpContext.Session.GetInt32("WithdrawalAmount");
+                    int newTimesWithdrawn = retrievedAccount.TimesWithdrawn;
+                    decimal newAvgWithdrawal = retrievedAccount.AvgWithdrawal;
+                    decimal finalBalance = retrievedAccount.Balance ;
+
+                    if (ModelState.IsValid)
+                    {
+                        accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
+                        withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, true);
+                    }
+                    return RedirectToAction("Index", "ServiceUnavailable");
+                }
+                else if (transactionType == "Transfer")
+                {
+                    Accounts retrievedTransferAccount = accountContext.GetAccount(transferAccountNo);
+
+                    decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetString("TransferAmount"));
+                    decimal finalBalance = retrievedAccount.Balance;
+                    decimal newBalance = retrievedTransferAccount.Balance;
+
+                    if (ModelState.IsValid)
+                    {
+                        accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
+                        transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, true);
+                    }
+                    return RedirectToAction("Index", "SuccessfulTransfer");
+                }
+            }
 
             return View();
         }
@@ -64,18 +104,48 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             {
                 if (reenteredPin == storedPin)
                 {
+                    string transactionType = HttpContext.Session.GetString("TransactionType");
+
                     string accountNo = HttpContext.Session.GetString("AccountNo");
+                    string transferAccountNo = HttpContext.Session.GetString("TransferAccountNo");
                     Accounts retrievedAccount = accountContext.GetAccount(accountNo);
 
-                    int intendedWithdrawalAmount = (int)HttpContext.Session.GetInt32("WithdrawalAmount");
-                    decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
-                    
-                    if (ModelState.IsValid)
+                    if (transactionType == "Withdrawal")
                     {
-                        accountContext.UpdateAccountBalance(accountNo, finalBalance);
+                        int intendedWithdrawalAmount = (int)HttpContext.Session.GetInt32("WithdrawalAmount");
+                        int timesWithdrawn = retrievedAccount.TimesWithdrawn;
+                        int newTimesWithdrawn = retrievedAccount.TimesWithdrawn += 1;
+                        decimal newAvgWithdrawal = (retrievedAccount.AvgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
+                        decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+
+                        if (ModelState.IsValid)
+                        {
+                            accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
+                            withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, false);
+                        }
+                        return RedirectToAction("Index", "DispenseCash");
                     }
-                    return RedirectToAction("Index", "DispenseCash");
+                    else if (transactionType == "Transfer")
+                    {
+                        Accounts retrievedTransferAccount = accountContext.GetAccount(transferAccountNo);
+
+                        decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetString("TransferAmount"));
+                        decimal finalBalance = retrievedAccount.Balance - intendedTransferAmount;
+                        decimal newBalance = retrievedTransferAccount.Balance + intendedTransferAmount;
+                        
+                        if (ModelState.IsValid)
+                        {
+                            accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
+                            transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, false);
+                        }
+                        return RedirectToAction("Index", "SuccessfulTransfer");
+                    }
                 }
+                else
+                {
+                    return RedirectToAction("Index", "IncorrectPinNo");
+                }
+
             }
 
             return View();
