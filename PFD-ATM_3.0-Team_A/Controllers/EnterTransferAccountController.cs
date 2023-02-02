@@ -15,6 +15,8 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
         public ActionResult StoreTransferAccountNo(IFormCollection form)
         {
+            HttpContext.Session.SetString("TransactionType", "Transfer");
+            
             string transferAccountNo = form["transferAccountNo"];
             bool accountExists = accountContext.IsAccountExist(transferAccountNo);
 
