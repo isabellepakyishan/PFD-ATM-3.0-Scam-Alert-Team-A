@@ -9,6 +9,8 @@ namespace PFD_ATM_3._0_Team_A.Controllers
     public class EnterWithdrawalAmountController : Controller
     {
         private AccountsDAL accountContext = new AccountsDAL();
+        private WithdrawalRecordsDAL withdrawalContext = new WithdrawalRecordsDAL();
+
         public IActionResult Index()
         {
             return View();
@@ -16,6 +18,8 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
         public ActionResult CheckWithdrawalAmountAndPin(IFormCollection form)
         {
+            HttpContext.Session.SetString("TransactionType", "Withdrawal");
+
             string accountNo = HttpContext.Session.GetString("AccountNo");
             Accounts retrievedAccount = accountContext.GetAccount(accountNo);
 
@@ -50,7 +54,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 else
                 {
                     HttpContext.Session.SetInt32("WithdrawalAmount", intendedWithdrawalAmount);
-                    
+
                     var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
                     var storedPin = HttpContext.Session.GetString("PinNo");
 
@@ -58,11 +62,15 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     {
                         if (enteredPin == storedPin)
                         {
+                            int timesWithdrawn = retrievedAccount.TimesWithdrawn;
+                            int newTimesWithdrawn = retrievedAccount.TimesWithdrawn += 1;
+                            decimal newAvgWithdrawal = (retrievedAccount.AvgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
                             decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
-                            
+
                             if (ModelState.IsValid)
                             {
-                                accountContext.UpdateAccountBalance(accountNo, finalBalance);
+                                accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
+                                withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, false);
                             }
                             return RedirectToAction("Index", "DispenseCash");
                         }
