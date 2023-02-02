@@ -64,13 +64,15 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                         {
                             int timesWithdrawn = retrievedAccount.TimesWithdrawn;
                             int newTimesWithdrawn = retrievedAccount.TimesWithdrawn += 1;
-                            decimal newAvgWithdrawal = (retrievedAccount.AvgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
+                            decimal avgWithdrawal = retrievedAccount.AvgWithdrawal;
+                            decimal newAvgWithdrawal = (avgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
+                            bool avgExceeded = intendedWithdrawalAmount > avgWithdrawal;
                             decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
 
                             if (ModelState.IsValid)
                             {
                                 accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
-                                withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, false);
+                                withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, avgExceeded, false);
                             }
                             return RedirectToAction("Index", "DispenseCash");
                         }
