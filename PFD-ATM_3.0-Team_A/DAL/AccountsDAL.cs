@@ -93,20 +93,44 @@ namespace PFD_ATM_3._0_Team_A.DAL
             return retrievedAccount;
         }
 
-        public int UpdateAccountBalance(string accountNo, decimal finalBalance)
+        public int WithdrawalUpdateAccountDetails(string accountNo, decimal finalBalance, decimal newAvgWithdrawal, int newTimesWithdrawn)
         {
-            Accounts retrievedAccount = GetAccount(accountNo);
-
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"UPDATE Accounts SET AccountBalance=@accountBalance WHERE AccountNo=@enteredAccount";
+            cmd.CommandText = @"UPDATE Accounts SET AccountBalance=@accountBalance, AvgWithdrawal=@avgWithdrawal, TimesWithdrawn=@timesWithdrawn WHERE AccountNo=@enteredAccount";
 
             cmd.Parameters.AddWithValue("@accountBalance", finalBalance);
+            cmd.Parameters.AddWithValue("@avgWithdrawal", newAvgWithdrawal);
+            cmd.Parameters.AddWithValue("@timesWithdrawn", newTimesWithdrawn);
             cmd.Parameters.AddWithValue("@enteredAccount", accountNo);
 
             conn.Open();
             int count = cmd.ExecuteNonQuery();
             conn.Close();
             return count;
+        }
+
+        public int TransferUpdateAccountBalance(string accountNo, decimal finalBalance, string transferAccountNo, decimal newBalance)
+        {
+            SqlCommand cmd1 = conn.CreateCommand();
+            cmd1.CommandText = @"UPDATE Accounts SET AccountBalance=@accountBalance WHERE AccountNo=@enteredAccount";
+
+            cmd1.Parameters.AddWithValue("@accountBalance", finalBalance);
+            cmd1.Parameters.AddWithValue("@enteredAccount", accountNo);
+
+            conn.Open();
+            int count1 = cmd1.ExecuteNonQuery();
+            conn.Close();
+
+            SqlCommand cmd2 = conn.CreateCommand();
+            cmd2.CommandText = @"UPDATE Accounts SET AccountBalance=@accountBalance WHERE AccountNo=@enteredAccount";
+
+            cmd2.Parameters.AddWithValue("@accountBalance", newBalance);
+            cmd2.Parameters.AddWithValue("@enteredAccount", transferAccountNo);
+            
+            conn.Open();
+            int count2 = cmd2.ExecuteNonQuery();
+            conn.Close();
+            return count2;
         }
     }
 }
