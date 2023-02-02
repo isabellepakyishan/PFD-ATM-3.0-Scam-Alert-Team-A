@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Transfer Successful";
+}
+
+<form>
+    <div class="row justify-content-center">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="mb-sm-0 text-center">Funds Transfer Successful!✅</h1>
+            <br />
+            <h3 class="mb-sm-0 text-center">Funds Transfer Details </h3>
+            <br />
+            <table id="datatable" class="table table-bordered dt-responsive w-100" style="font-size:20px">
+                <tbody>
+                    <tr>
+                        <td> Transferred from: </td>
+                        <td> @Context.Session.GetString("AccountName") </td>
+                        <td> @Context.Session.GetString("AccountNo") </td>
+                    </tr>
+                    <tr>
+                        <td> Transferred to: </td>
+                        <td> @Context.Session.GetString("TransferAccountName") </td>
+                        <td> @Context.Session.GetString("TransferAccountNo") </td>
+                    </tr>
+                    <tr>
+                        <td> Amount Transferred: </td>
+                        <td colspan=2> $@Convert.ToDecimal(Context.Session.GetString("TransferAmount")) </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</form>
