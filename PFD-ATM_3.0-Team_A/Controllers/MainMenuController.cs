@@ -45,7 +45,6 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     return RedirectToAction("Index", "IncorrectPinNo");
                 }
             }
-            return null;
         }
     }
 }
