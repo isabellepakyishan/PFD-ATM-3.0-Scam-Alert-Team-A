@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PFD_ATM_3._0_Team_A.DAL;
 using PFD_ATM_3._0_Team_A.Models;
 using System;
-using PFD_ATM_3._0_Team_A.DAL;
-using PFD_ATM_3._0_Team_A.Models;
 
 namespace PFD_ATM_3._0_Team_A.Controllers
 {
@@ -20,7 +18,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         {
             string accountNo = HttpContext.Session.GetString("AccountNo");
             Accounts retrievedAccount = accountContext.GetAccount(accountNo);
-            
+
             decimal intendedTransferAmount = Convert.ToDecimal(form["transferAmount"]);
             decimal accountTransferLimit = retrievedAccount.TransferLimit;
             decimal accountBalance = retrievedAccount.Balance;
