@@ -9,22 +9,38 @@ namespace PFD_ATM_3._0_Team_A.Controllers
     public class ConfirmTransferController : Controller
     {
         private AccountsDAL accountContext = new AccountsDAL();
+        private TransferRecordsDAL transferContext = new TransferRecordsDAL();
+        
         public IActionResult Index()
         {
-            //Session["AccountNo"]
             return View();
         }
 
-        public ActionResult CheckPIN()
+
+        public ActionResult ProceedWithTransfer()
         {
-            var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
-            var storedPin = HttpContext.Session.GetString("PinNo");
+            string accountNo = HttpContext.Session.GetString("AccountNo");
+            string transferAccountNo = HttpContext.Session.GetString("TransferAccountNo");
+            Accounts retrievedAccount = accountContext.GetAccount(accountNo);
+            Accounts retrievedTransferAccount = accountContext.GetAccount(transferAccountNo);
+            decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetString("TransferAmount"));
+
+            string enteredPin = HttpContext.Session.GetString("EnteredPinNo");
+            string storedPin = HttpContext.Session.GetString("PinNo");
 
             if (enteredPin.Length == 6)
             {
                 if (enteredPin == storedPin)
                 {
-                    return RedirectToAction("Index", "DispenseCash");
+                    decimal finalBalance = retrievedAccount.Balance - intendedTransferAmount;
+                    decimal newBalance = retrievedTransferAccount.Balance + intendedTransferAmount;
+
+                    if (ModelState.IsValid)
+                    {
+                        accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
+                        transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, false);
+                    }
+                    return RedirectToAction("Index", "SuccessfulTransfer");
                 }
                 else
                 {
@@ -44,27 +60,38 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     return RedirectToAction("Index", "IncorrectPinNo");
                 }
             }
-            return null;
         }
 
-        public ActionResult ProceedWithTransfer()
-        {
-            string accountNo = HttpContext.Session.GetString("AccountNo");
-            string enteredPinNo = HttpContext.Session.GetString("EnteredPinNo");
-            Accounts retrievedAccount = accountContext.GetAccount(accountNo);
+        //public ActionResult CheckPIN()
+        //{
+        //    var enteredPin = HttpContext.Session.GetString("EnteredPinNo");
+        //    var storedPin = HttpContext.Session.GetString("PinNo");
 
-            decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetInt32("TransferAmount"));
-            decimal accountTransferLimit = retrievedAccount.TransferLimit;
-
-            if (intendedTransferAmount > accountTransferLimit)
-            {
-                return RedirectToAction("Index", "EnterTransferAmount");
-            }
-            else
-            {
-                CheckPIN();
-            }
-            return RedirectToAction();
+        //    if (enteredPin.Length == 6)
+        //    {
+        //        if (enteredPin == storedPin)
+        //        {
+        //            return RedirectToAction("Index", "DispenseCash");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "IncorrectPinNo");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        char lastPin = enteredPin[enteredPin.Length - 1];
+        //        string first6Pin = enteredPin.Remove(6);
+        //        if (lastPin == '*' && first6Pin == storedPin)
+        //        {
+        //            return RedirectToAction("Index", "AuthenticationError");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "IncorrectPinNo");
+        //        }
+        //    }
+        //    return null;
+        //}    '
         }
-    }
 }
