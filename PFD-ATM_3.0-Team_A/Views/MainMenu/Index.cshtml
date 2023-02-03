@@ -108,6 +108,7 @@
             </div>
         </form>
     </div>
+
     <div class="col-5">
         <div class="row" style="margin-top: 58.78px;">
             <p> </p>
@@ -140,17 +141,19 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button type="button" class="btn btn-light waves-effect waves-light"
-                        style="height: 242px;">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <i class="mdi mdi-hand-coin-outline font-size-24"></i>
-                                <div class="col" style="font-size: 24px;">
-                                    Balance Enquiry
+                    <form>
+                        <button asp-controller="MainMenu" asp-action="BalanceEnquiry" type="submit" class="btn btn-light waves-effect waves-light"
+                            style="height: 242px;">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <i class="mdi mdi-hand-coin-outline font-size-24"></i>
+                                    <div class="col" style="font-size: 24px;">
+                                        Balance Enquiry
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </button>
+                        </button>
+                    </form>
                     <!-- end card body -->
                 </div><!-- end card -->
             </div><!-- end col -->
