@@ -14,6 +14,11 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             return View();
         }
 
+        public ActionResult ReturnToMainMenu()
+        {
+            return RedirectToAction("Index", "MainMenu");
+        }
+
         public ActionResult StoreTransferAccountNo(IFormCollection form)
         {
             HttpContext.Session.SetString("TransactionType", "Transfer");
