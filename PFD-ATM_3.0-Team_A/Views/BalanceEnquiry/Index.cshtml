@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Balance Enquiry";
+}
+
+<form>
+    <div class="row justify-content-center">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="mb-sm-0 text-center">Balance Enquiry for @Context.Session.GetString("AccountName")</h1>
+
+            <br />
+            <table id="datatable" class="table table-bordered dt-responsive w-100" style="font-size:20px">
+                <tbody>
+                    <tr>
+                        <td> Account Number: </td>
+                        <td> @Context.Session.GetString("AccountNo") </td>
+                    </tr>
+                    <tr>
+                        <td> Account Balance: </td>
+                        <td> @Context.Session.GetString("AccountBalance") </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-4 col-md-6"></div>
+        <div class="col-xl-4 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100">
+                    <!-- card body -->
+                    <button asp-controller="MainMenu" asp-action="Index" type="submit" class="btn btn-dark waves-effect waves-light">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 20px;">
+                                    Return to Main Menu
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                <!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+        <div class="col-xl-4 col-md-6"></div>
+    </div>
+</form>
