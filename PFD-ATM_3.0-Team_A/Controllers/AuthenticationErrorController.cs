@@ -46,12 +46,13 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     decimal avgWithdrawal = retrievedAccount.AvgWithdrawal;
                     decimal newAvgWithdrawal = retrievedAccount.AvgWithdrawal;
                     bool avgExceeded = intendedWithdrawalAmount > avgWithdrawal;
-                    decimal finalBalance = retrievedAccount.Balance ;
+                    decimal finalBalance = retrievedAccount.Balance;
+                    DateTime withdrawalDate = DateTime.Now;
 
                     if (ModelState.IsValid)
                     {
                         accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
-                        withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, avgExceeded, true);
+                        withdrawalContext.InsertWithdrawalRecord(withdrawalDate, accountNo, intendedWithdrawalAmount, avgExceeded, true);
                     }
                     return RedirectToAction("Index", "ServiceUnavailable");
                 }
@@ -62,11 +63,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetString("TransferAmount"));
                     decimal finalBalance = retrievedAccount.Balance;
                     decimal newBalance = retrievedTransferAccount.Balance;
+                    DateTime transferDate = DateTime.Now;
 
                     if (ModelState.IsValid)
                     {
                         accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
-                        transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, true);
+                        transferContext.InsertTransferRecord(transferDate, accountNo, transferAccountNo, intendedTransferAmount, true);
                     }
                     return RedirectToAction("Index", "SuccessfulTransfer");
                 }
@@ -127,11 +129,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                         decimal newAvgWithdrawal = (avgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
                         bool avgExceeded = intendedWithdrawalAmount > avgWithdrawal;
                         decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+                        DateTime withdrawalDate = DateTime.Now;
 
                         if (ModelState.IsValid)
                         {
                             accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
-                            withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, avgExceeded, false);
+                            withdrawalContext.InsertWithdrawalRecord(withdrawalDate, accountNo, intendedWithdrawalAmount, avgExceeded, false);
                         }
                         return RedirectToAction("Index", "DispenseCash");
                     }
@@ -142,11 +145,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                         decimal intendedTransferAmount = Convert.ToDecimal(HttpContext.Session.GetString("TransferAmount"));
                         decimal finalBalance = retrievedAccount.Balance - intendedTransferAmount;
                         decimal newBalance = retrievedTransferAccount.Balance + intendedTransferAmount;
-                        
+                        DateTime transferDate = DateTime.Now;
+
                         if (ModelState.IsValid)
                         {
                             accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
-                            transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, false);
+                            transferContext.InsertTransferRecord(transferDate, accountNo, transferAccountNo, intendedTransferAmount, false);
                         }
                         return RedirectToAction("Index", "SuccessfulTransfer");
                     }
