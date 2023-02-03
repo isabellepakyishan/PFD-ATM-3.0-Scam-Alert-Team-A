@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;   //Contains IConfiguration interface which reads JSON configuration information
 using System.IO;                            //Contains classes from file/directory input/output operations
 using System.Data.SqlClient;                //Contains ADO.NET classes like SqlConnection, SqlCommand, SqlDataReader
+using System;
 
 namespace PFD_ATM_3._0_Team_A.DAL
 {
@@ -20,11 +21,12 @@ namespace PFD_ATM_3._0_Team_A.DAL
             conn = new SqlConnection(strConn);
         }
 
-        public int InsertWithdrawalRecord(string accountNo, decimal finalBalance, bool avgExceeded, bool withdrawalSuspicious)
+        public int InsertWithdrawalRecord(DateTime withdrawalDate, string accountNo, decimal finalBalance, bool avgExceeded, bool withdrawalSuspicious)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"INSERT INTO WithdrawalRecords VALUES(@AccountNo, @FinalBalance, @AvgExceeded, @WithdrawalSuspicious)";
+            cmd.CommandText = @"INSERT INTO WithdrawalRecords VALUES(@WithdrawalDate, @AccountNo, @FinalBalance, @AvgExceeded, @WithdrawalSuspicious)";
 
+            cmd.Parameters.AddWithValue("@WithdrawalDate", withdrawalDate);
             cmd.Parameters.AddWithValue("@AccountNo", accountNo);
             cmd.Parameters.AddWithValue("@FinalBalance", finalBalance);
             cmd.Parameters.AddWithValue("@AvgExceeded", avgExceeded);
