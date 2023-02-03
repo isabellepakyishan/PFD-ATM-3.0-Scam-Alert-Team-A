@@ -160,6 +160,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     }
                     else if (transactionType == "BalanceEnquiry")
                     {
+                        HttpContext.Session.SetInt32("PinEntryCount", 1);
                         return RedirectToAction("Index", "BalanceEnquiry");
                     }
                 }
