@@ -31,6 +31,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             int intendedWithdrawalAmount = Convert.ToInt32(form["withdrawalAmount"]);
             int accountWithdrawalLimit = Convert.ToInt32(retrievedAccount.WithdrawalLimit);
             decimal accountBalance = retrievedAccount.Balance;
+            decimal avgWithdrawal = retrievedAccount.AvgWithdrawal;
 
             int checkWithdrawalMultiples = intendedWithdrawalAmount % 10;
 
@@ -56,6 +57,15 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     TempData["Message"] = "Withdrawal amount entered exceeds daily withdrawal limit. Please enter a valid withdrawal amount.";
                     return RedirectToAction("Index", "EnterWithdrawalAmount");
                 }
+                else if (intendedWithdrawalAmount > avgWithdrawal)
+                {
+                    HttpContext.Session.SetInt32("WithdrawalAmount", intendedWithdrawalAmount);
+
+                    decimal avgWithdrawal2 = Math.Round(avgWithdrawal, 2);
+                    HttpContext.Session.SetString("AvgWithdrawalAmount", Convert.ToString(avgWithdrawal2));
+
+                    return RedirectToAction("Index", "ExceedAvgWithdrawal");
+                }
                 else
                 {
                     HttpContext.Session.SetInt32("WithdrawalAmount", intendedWithdrawalAmount);
@@ -69,10 +79,9 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                         {
                             int timesWithdrawn = retrievedAccount.TimesWithdrawn;
                             int newTimesWithdrawn = retrievedAccount.TimesWithdrawn += 1;
-                            decimal avgWithdrawal = retrievedAccount.AvgWithdrawal;
                             decimal newAvgWithdrawal = (avgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
                             bool avgExceeded = intendedWithdrawalAmount > avgWithdrawal;
-                            decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+                            decimal finalBalance = accountBalance - intendedWithdrawalAmount;
                             DateTime withdrawalDate = DateTime.Now;
 
                             if (ModelState.IsValid)
