@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 
 @{
-    ViewData["Title"] = "Average Withdrawal exceeded";
+    ViewData["Title"] = "Average Withdrawal Exceeded";
 }
 
 <div class="row">
@@ -10,12 +10,9 @@
         <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_htJ3nq.json"
                        background="transparent" speed="0.5" style="width: 324px; height: 300px; margin: 0 auto;" loop autoplay>
         </lottie-player>
-        <h1 class="mb-sm-0" style="text-align: center; color:red">Verify funds transfer to @Context.Session.GetString("TransferAccountName")</h1>
+        <h1 class="mb-sm-0" style="text-align: center; color:red">Confirm cash withdrawal of $@Context.Session.GetInt32("WithdrawalAmount")</h1>
         <br>
-        <h3 class="mb-sm-0" style="text-align: center;">You have not transfered to this account before.</h3>
-        <h3 class="mb-sm-0" style="text-align: center;">Do ensure that you are not being scammed.</h3>
-        <h3 class="mb-sm-0" style="text-align: center;">Government Authorities will never ask you to transfer funds over phone.</h3>
-        <h3 class="mb-sm-0" style="text-align: center;">Please press Confirm to continue this transaction. </h3>
+        <h3 class="mb-sm-0" style="text-align: center;">The amount you are attempting to withdraw exceeds the amount you withdraw on average ($@Convert.ToDecimal(Context.Session.GetString("AvgWithdrawalAmount"))). Please press Confirm to confirm the withdrawal of $@Context.Session.GetInt32("WithdrawalAmount"). </h3>
         <br>
     </div>
     <div class="col-1"></div>
@@ -29,7 +26,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button asp-controller="FirstFundsTransfer" asp-action="ReturnToEnterTransferAccount" type="submit" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="ExceedAvgWithdrawal" asp-action="ReturnToEnterWithdrawalAmount" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col" style="font-size: 20px;">
@@ -45,7 +42,7 @@
                 <!-- card -->
                 <div class="card card-h-100">
                     <!-- card body -->
-                    <button asp-controller="FirstFundsTransfer" asp-action="ContinueToEnterTransferAmount" type="submit" class="btn btn-dark waves-effect waves-light">
+                    <button asp-controller="ExceedAvgWithdrawal" asp-action="ProceedWithWithdrawal" type="submit" class="btn btn-dark waves-effect waves-light">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col" style="font-size: 20px;">
