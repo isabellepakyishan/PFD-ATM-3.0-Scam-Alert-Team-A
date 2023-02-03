@@ -38,11 +38,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 {
                     decimal finalBalance = retrievedAccount.Balance - intendedTransferAmount;
                     decimal newBalance = retrievedTransferAccount.Balance + intendedTransferAmount;
+                    DateTime transferDate = DateTime.Now;
 
                     if (ModelState.IsValid)
                     {
                         accountContext.TransferUpdateAccountBalance(accountNo, finalBalance, transferAccountNo, newBalance);
-                        transferContext.InsertTransferRecord(accountNo, transferAccountNo, intendedTransferAmount, false);
+                        transferContext.InsertTransferRecord(transferDate, accountNo, transferAccountNo, intendedTransferAmount, false);
                     }
                     return RedirectToAction("Index", "SuccessfulTransfer");
                 }
