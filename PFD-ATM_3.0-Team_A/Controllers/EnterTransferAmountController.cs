@@ -14,6 +14,11 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             return View();
         }
 
+        public ActionResult ReturnToMainMenu()
+        {
+            return RedirectToAction("Index", "MainMenu");
+        }
+
         public ActionResult CheckTransferAmount(IFormCollection form)
         {
             string accountNo = HttpContext.Session.GetString("AccountNo");
@@ -31,7 +36,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             else if (intendedTransferAmount > accountBalance)
             {
                 TempData["Message"] = "Transfer amount entered exceeds your account balance. Please enter a valid withdrawal amount.";
-                return RedirectToAction("Index", "EnterWithdrawalAmount");
+                return RedirectToAction("Index", "EnterTransferAmount");
             }
             else
             {
