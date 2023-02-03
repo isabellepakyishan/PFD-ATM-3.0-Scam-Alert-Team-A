@@ -20,6 +20,11 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             return View();
         }
 
+        public ActionResult SimulateClear()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult StoreAccountInfo(IFormCollection form)
         {
             string accountNo = form["accountNo"];
