@@ -73,11 +73,12 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                             decimal newAvgWithdrawal = (avgWithdrawal * timesWithdrawn + intendedWithdrawalAmount) / newTimesWithdrawn;
                             bool avgExceeded = intendedWithdrawalAmount > avgWithdrawal;
                             decimal finalBalance = retrievedAccount.Balance - intendedWithdrawalAmount;
+                            DateTime withdrawalDate = DateTime.Now;
 
                             if (ModelState.IsValid)
                             {
                                 accountContext.WithdrawalUpdateAccountDetails(accountNo, finalBalance, newAvgWithdrawal, newTimesWithdrawn);
-                                withdrawalContext.InsertWithdrawalRecord(accountNo, intendedWithdrawalAmount, avgExceeded, false);
+                                withdrawalContext.InsertWithdrawalRecord(withdrawalDate, accountNo, intendedWithdrawalAmount, avgExceeded, false);
                             }
                             return RedirectToAction("Index", "DispenseCash");
                         }
