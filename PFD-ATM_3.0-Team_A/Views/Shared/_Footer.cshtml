@@ -1,4 +1,57 @@
-﻿<footer class="footer w-100" style="left:auto;right:auto;">
+﻿<style>
+    html,
+    body {
+        margin: 0;
+    }
+
+    .banner{
+        background: #009579;
+        position: fixed;
+        bottom: 60px;
+        width: 1300px;   
+    }
+
+    .banner__content{
+        padding: 16px;
+        max-width: 2500px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .banner__text{
+        flex-grow: 1;
+        line-height: 1.4;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .banner__close{
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .banner__text,
+    .banner__close > span{
+        color: #ffffff;
+    }
+</style>
+
+
+<div class="banner">
+    <div class="banner__content">
+        <div class="banner__text">
+            <strong>Announcement:</strong> Never divulge your banking credentials or one-time passwords to anyone. Find out more on how you can spot a scam with our website. If in doubt, call the bank's official hotline at 1800 363 3333 (or +65 6363 3333 if you are overseas).
+        </div>
+        <button class="banner__close" type="button">
+            <span class="material-icons">
+                close
+            </span>
+        </button>
+    </div>
+</div>
+
+<footer class="footer w-100" style="left:auto;right:auto;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
@@ -24,3 +77,10 @@
         </div>
     </div>
 </footer>
+
+
+<script>
+    document.querySelector(".banner__close").addEventListener("click", function () {
+        this.closest(".banner").style.display = "none";
+    });
+</script>
