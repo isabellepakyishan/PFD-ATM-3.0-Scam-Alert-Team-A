@@ -8,5 +8,10 @@ namespace PFD_ATM_3._0_Team_A.Controllers
         {
             return View();
         }
+
+        public ActionResult ReturnToHome()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
