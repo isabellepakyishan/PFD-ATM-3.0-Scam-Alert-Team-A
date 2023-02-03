@@ -72,6 +72,10 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                     }
                     return RedirectToAction("Index", "SuccessfulTransfer");
                 }
+                else if (transactionType == "BalanceEnquiry")
+                {
+                    return RedirectToAction("Index", "ServiceUnavailable");
+                }
             }
 
             return View();
@@ -153,6 +157,10 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                             transferContext.InsertTransferRecord(transferDate, accountNo, transferAccountNo, intendedTransferAmount, false);
                         }
                         return RedirectToAction("Index", "SuccessfulTransfer");
+                    }
+                    else if (transactionType == "BalanceEnquiry")
+                    {
+                        return RedirectToAction("Index", "BalanceEnquiry");
                     }
                 }
                 else
