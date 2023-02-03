@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Http
+
 @{
+    ViewData["Title"] = "Average Withdrawal exceeded";
 }
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_htJ3nq.json"
+                       background="transparent" speed="0.5" style="width: 324px; height: 300px; margin: 0 auto;" loop autoplay>
+        </lottie-player>
+        <h1 class="mb-sm-0" style="text-align: center; color:red">Verify funds transfer to @Context.Session.GetString("TransferAccountName")</h1>
+        <br>
+        <h3 class="mb-sm-0" style="text-align: center;">You have not transfered to this account before.</h3>
+        <h3 class="mb-sm-0" style="text-align: center;">Do ensure that you are not being scammed.</h3>
+        <h3 class="mb-sm-0" style="text-align: center;">Government Authorities will never ask you to transfer funds over phone.</h3>
+        <h3 class="mb-sm-0" style="text-align: center;">Please press Confirm to continue this transaction. </h3>
+        <br>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="row">
+    <form>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-xl-4 col-md-6"></div>
+            <div class="col-xl-2 col-md-6">
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <button asp-controller="FirstFundsTransfer" asp-action="ReturnToEnterTransferAccount" type="submit" class="btn btn-dark waves-effect waves-light">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 20px;">
+                                    Cancel
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+            <div class="col-xl-2 col-md-6">
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <button asp-controller="FirstFundsTransfer" asp-action="ContinueToEnterTransferAmount" type="submit" class="btn btn-dark waves-effect waves-light">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col" style="font-size: 20px;">
+                                    Confirm
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+            <div class="col-xl-4 col-md-6"></div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/@@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
