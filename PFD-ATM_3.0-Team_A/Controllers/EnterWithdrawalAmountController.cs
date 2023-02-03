@@ -45,6 +45,11 @@ namespace PFD_ATM_3._0_Team_A.Controllers
                 TempData["Message"] = "You cannot withdraw $0🤯 Please enter a valid withdrawal amount.";
                 return RedirectToAction("Index", "EnterWithdrawalAmount");
             }
+            else if (intendedWithdrawalAmount < 0)
+            {
+                TempData["Message"] = "You cannot withdraw a negative amount🤯 Please enter a valid withdrawal amount.";
+                return RedirectToAction("Index", "EnterWithdrawalAmount");
+            }
             else
             {
                 if (intendedWithdrawalAmount > accountBalance)
