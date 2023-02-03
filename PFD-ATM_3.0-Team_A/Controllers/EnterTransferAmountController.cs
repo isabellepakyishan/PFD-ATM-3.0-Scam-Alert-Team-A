@@ -40,8 +40,8 @@ namespace PFD_ATM_3._0_Team_A.Controllers
             }
             else if (intendedTransferAmount < 0)
             {
-                TempData["Message"] = "You cannot withdraw a negative amount🤯 Please enter a valid funds transfer amount.";
-                return RedirectToAction("Index", "EnterWithdrawalAmount");
+                TempData["Message"] = "You cannot transfer a negative amount🤯 Please enter a valid funds transfer amount.";
+                return RedirectToAction("Index", "EnterTransferAmount");
             }
             else
             {
