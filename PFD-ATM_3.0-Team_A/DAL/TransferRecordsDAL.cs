@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;   //Contains IConfiguration interface which reads JSON configuration information
 using System.IO;                            //Contains classes from file/directory input/output operations
 using System.Data.SqlClient;                //Contains ADO.NET classes like SqlConnection, SqlCommand, SqlDataReader
+using System;
 
 namespace PFD_ATM_3._0_Team_A.DAL
 {
@@ -46,11 +47,12 @@ namespace PFD_ATM_3._0_Team_A.DAL
             return transferOccurred;
         }
 
-        public int InsertTransferRecord(string accountNo, string transferAccountNo, decimal transferAmount, bool transferSuspicious)
+        public int InsertTransferRecord(DateTime transferDate, string accountNo, string transferAccountNo, decimal transferAmount, bool transferSuspicious)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"INSERT INTO TransferRecords VALUES(@AccountNo, @TransferAccountNo, @TransferAmount, @TransferSuspicious)";
+            cmd.CommandText = @"INSERT INTO TransferRecords VALUES(@TransferDate, @AccountNo, @TransferAccountNo, @TransferAmount, @TransferSuspicious)";
             
+            cmd.Parameters.AddWithValue("@TransferDate", transferDate);
             cmd.Parameters.AddWithValue("@AccountNo", accountNo);
             cmd.Parameters.AddWithValue("@TransferAccountNo", transferAccountNo);
             cmd.Parameters.AddWithValue("@TransferAmount", transferAmount);
