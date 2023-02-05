@@ -81,7 +81,7 @@ namespace PFD_ATM_3._0_Team_A
             catch(Exception e) { }
         }
 
-        //get python path from environtment variable
+        //get python path from environment variable
         protected string GetPythonPath()
         {
             string environmentVariable = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
