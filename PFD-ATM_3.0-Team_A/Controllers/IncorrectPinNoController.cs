@@ -49,6 +49,7 @@ namespace PFD_ATM_3._0_Team_A.Controllers
 
                 if (lastPin == '*' && first6Pin == storedPin)
                 {
+                    HttpContext.Session.SetString("EnteredPinNo", reenteredPin);
                     return RedirectToAction("Index", "AuthenticationError");
                 }
                 else
