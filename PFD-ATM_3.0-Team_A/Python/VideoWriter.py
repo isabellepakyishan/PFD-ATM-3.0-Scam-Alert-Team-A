@@ -39,7 +39,7 @@ def WriteVid():
 
 def StoreVid():
     try:
-        s3 = boto3.client('s3')
+        s3 = boto3.client('s3', aws_access_key_id="AKIATITWPGFPM32X3EUX", aws_secret_access_key="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")
 
         bucket_name = 'mypfdalertbucket'
         vid_path = 'Static/output.mp4'
